@@ -172,7 +172,7 @@ const content = {
       phoneName: "มิติ",
       cta: "ส่งข้อความหาเรา",
     },
-    footer: "© 2025 MATA SOFT. All rights reserved.",
+    footer: "© 2026 MATA SOFT. All rights reserved.",
   },
   en: {
     nav: {
@@ -325,7 +325,7 @@ const content = {
       phoneName: "Miti",
       cta: "Send Us a Message",
     },
-    footer: "© 2025 MATA SOFT. All rights reserved.",
+    footer: "© 2026 MATA SOFT. All rights reserved.",
   },
 };
 
@@ -1907,15 +1907,51 @@ export default function Home() {
         </section>
 
         {/* ── Footer ── */}
-        <footer className="py-8 px-6" style={{ borderTop:`1px solid ${c.footerBorder}`, background:c.pageBg }}>
-          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: isDark?"white":"#2563eb" }}>
-                <span className="font-black text-xs" style={{ color: isDark?"#2563eb":"white" }}>M</span>
+        <footer className="px-6 pt-12 pb-8" style={{ borderTop:`1px solid ${c.footerBorder}`, background:c.pageBg }}>
+          <div className="max-w-6xl mx-auto">
+            {/* Top row */}
+            <div className="grid sm:grid-cols-3 gap-10 mb-10">
+              {/* Brand */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background:"linear-gradient(135deg,#1d4ed8,#6d28d9)" }}>
+                    <span className="font-black text-xs text-white">M</span>
+                  </div>
+                  <span className="font-black text-sm" style={{ color:c.text }}>MATA SOFT</span>
+                </div>
+                <p className="text-xs leading-relaxed" style={{ color:c.noteCol, maxWidth:200 }}>
+                  รับทำ App & เว็บไซต์ระดับมืออาชีพ<br/>ส่งตรงเวลา มี Source Code ครบ
+                </p>
               </div>
-              <span className="font-semibold text-sm" style={{ color:c.text }}>MATA SOFT</span>
+              {/* Services */}
+              <div>
+                <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color:c.eyebrow }}>บริการ</p>
+                <ul className="space-y-2">
+                  {["Flutter App iOS/Android","เว็บไซต์ธุรกิจ","Web Application","UI/UX Design"].map(s=>(
+                    <li key={s} className="text-xs" style={{ color:c.noteCol }}>{s}</li>
+                  ))}
+                </ul>
+              </div>
+              {/* Contact */}
+              <div>
+                <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color:c.eyebrow }}>ติดต่อ</p>
+                <ul className="space-y-2">
+                  <li className="text-xs" style={{ color:c.noteCol }}>contact@matasoft.dev</li>
+                  <li className="text-xs" style={{ color:c.noteCol }}>0943218118 · มิติ</li>
+                  <li className="text-xs" style={{ color:c.noteCol }}>Line: @linebeamza</li>
+                  <li><a href="https://matasoft.dev" className="text-xs" style={{ color:c.eyebrow }}>matasoft.dev</a></li>
+                </ul>
+              </div>
             </div>
-            <p className="text-xs" style={{ color:c.noteCol }}>{t.footer}</p>
+            {/* Bottom row */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-6" style={{ borderTop:`1px solid ${c.footerBorder}` }}>
+              <p className="text-xs" style={{ color:c.noteCol }}>{t.footer}</p>
+              <div className="flex items-center gap-4">
+                {["Flutter App","Web Development","UI/UX Design"].map(tag=>(
+                  <span key={tag} className="text-xs" style={{ color:c.noteCol, opacity:0.6 }}>{tag}</span>
+                ))}
+              </div>
+            </div>
           </div>
         </footer>
       </div>
