@@ -1718,7 +1718,7 @@ export default function Home() {
                 <div className="flex flex-col gap-3 mb-10">
                   {([
                     {icon:<Mail className="w-4 h-4"/>, label:t.contact.emailLabel, val:t.contact.emailVal, href:`mailto:${t.contact.emailVal}`, col:"#60a5fa", bg:"rgba(59,130,246,0.08)", hbg:"rgba(59,130,246,0.16)", border:"rgba(59,130,246,0.22)"},
-                    {icon:<MessageCircle className="w-4 h-4"/>, label:t.contact.lineLabel, val:t.contact.lineVal, href:`https://line.me/ti/p/~${t.contact.lineVal}`, col:"#4ade80", bg:"rgba(34,197,94,0.08)", hbg:"rgba(34,197,94,0.16)", border:"rgba(34,197,94,0.22)"},
+                    {icon:<MessageCircle className="w-4 h-4"/>, label:t.contact.lineLabel, val:"", href:`https://line.me/ti/p/~${t.contact.lineVal}`, col:"#4ade80", bg:"rgba(34,197,94,0.08)", hbg:"rgba(34,197,94,0.16)", border:"rgba(34,197,94,0.22)"},
                     {icon:<Phone className="w-4 h-4"/>, label:t.contact.phoneLabel, val:`${t.contact.phoneVal} · ${t.contact.phoneName}`, href:`tel:${t.contact.phoneVal.replace(/-/g,"")}`, col:"#fb923c", bg:"rgba(251,146,60,0.08)", hbg:"rgba(251,146,60,0.16)", border:"rgba(251,146,60,0.22)"},
                   ] as {icon:React.ReactNode,label:string,val:string,href:string,col:string,bg:string,hbg:string,border:string}[]).map((item,i)=>(
                     <a key={i} href={item.href}
