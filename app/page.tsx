@@ -393,7 +393,7 @@ export default function Home() {
   const [lang, setLang] = useState<Lang>("th");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const [pricingTab, setPricingTab] = useState<"app"|"web">("app");
   const t = content[lang];
   const c = isDark ? dk : lt;
