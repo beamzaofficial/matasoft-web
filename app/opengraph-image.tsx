@@ -126,7 +126,7 @@ export default function Image() {
           }}
         >
           <span style={{ fontSize: 14, color: "rgba(96,165,250,0.65)" }}>contact@matasoft.dev</span>
-          <span style={{ fontSize: 14, color: "rgba(96,165,250,0.65)" }}>094-321-8118</span>
+          <span style={{ fontSize: 14, color: "rgba(96,165,250,0.65)" }}>0943218118</span>
           <span style={{ fontSize: 14, color: "rgba(96,165,250,0.45)", letterSpacing: 1 }}>matasoft.dev</span>
         </div>
       </div>
