@@ -400,11 +400,24 @@ export default function Home() {
 
   const spotlightRef = useRef<HTMLDivElement>(null);
   const heroGeoRef   = useRef<HTMLDivElement>(null);
+  const backTopRef   = useRef<HTMLButtonElement>(null);
   // Normalize floating-point SVG coords — prevents SSR/client hydration mismatch
   const p = (n: number) => +n.toFixed(4);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => {
+      const s = window.scrollY;
+      setScrolled(s > 60);
+      const bt = backTopRef.current;
+      if (bt) {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = total > 0 ? Math.round((s / total) * 100) : 0;
+        bt.style.opacity = s > 400 ? "1" : "0";
+        bt.style.pointerEvents = s > 400 ? "auto" : "none";
+        const fill = bt.querySelector<HTMLElement>(".bt-fill");
+        if (fill) fill.style.height = `${pct}%`;
+      }
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -1906,6 +1919,38 @@ export default function Home() {
           </div>
         </footer>
       </div>
+
+      {/* Back to top */}
+      <button
+        ref={backTopRef}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className="fixed z-50"
+        style={{
+          right: 24, bottom: 24,
+          width: 36, height: 52,
+          borderRadius: 10,
+          background: "rgba(6,10,24,0.88)",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
+          border: "1px solid rgba(59,130,246,0.28)",
+          cursor: "pointer",
+          opacity: 0,
+          pointerEvents: "none",
+          transition: "opacity 0.35s ease, border-color 0.2s ease, transform 0.2s ease",
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end",
+          padding: "0 0 10px 0",
+          overflow: "hidden",
+        }}
+        onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(96,165,250,0.6)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
+        onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(59,130,246,0.28)"; e.currentTarget.style.transform = "translateY(0)"; }}
+      >
+        {/* Scroll progress fill */}
+        <div className="bt-fill absolute left-0 bottom-0 w-full" style={{ background: "linear-gradient(to top,rgba(59,130,246,0.22),rgba(99,102,241,0.1))", height: "0%", transition: "height 0.15s linear" }} />
+        {/* Arrow */}
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ position: "relative", zIndex: 1 }}>
+          <path d="M6 10V2M6 2L2 6M6 2L10 6" stroke="rgba(96,165,250,0.85)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
     </>
   );
 }
