@@ -764,8 +764,8 @@ function HeroWireframe({ dark }: { dark: boolean }) {
   });
 
   return (
-    <svg viewBox="0 0 430 570" width="100%" style={{ display:"block" }} xmlns="http://www.w3.org/2000/svg"
-      style={{ filter: dark ? "drop-shadow(0 0 44px rgba(96,165,250,0.16))" : "drop-shadow(0 0 32px rgba(37,99,235,0.13))" }}>
+    <svg viewBox="0 0 430 570" width="100%" xmlns="http://www.w3.org/2000/svg"
+      style={{ display:"block", filter: dark ? "drop-shadow(0 0 44px rgba(96,165,250,0.16))" : "drop-shadow(0 0 32px rgba(37,99,235,0.13))" }}>
 
       {/* ── Corner registration marks ── */}
       {([[5,5,1,1],[425,5,-1,1],[425,565,-1,-1],[5,565,1,-1]] as [number,number,number,number][]).map(([x,y,dx,dy],i) => (

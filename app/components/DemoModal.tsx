@@ -15,8 +15,8 @@ const Row = ({ children, gap = 8, style }: { children: React.ReactNode; gap?: nu
 const Col = ({ children, gap = 8, style }: { children: React.ReactNode; gap?: number; style?: React.CSSProperties }) =>
   <div style={{ display: "flex", flexDirection: "column", gap, ...style }}>{children}</div>;
 
-const Box = ({ w, h, r = 6, color, style }: { w?: number | string; h?: number | string; r?: number; color: string; style?: React.CSSProperties }) =>
-  <div style={{ width: w, height: h, borderRadius: r, background: color, flexShrink: 0, ...style }} />;
+const Box = ({ w, h, r = 6, color, style, children }: { w?: number | string; h?: number | string; r?: number; color: string; style?: React.CSSProperties; children?: React.ReactNode }) =>
+  <div style={{ width: w, height: h, borderRadius: r, background: color, flexShrink: 0, ...style }}>{children}</div>;
 
 const Line = ({ w = "100%", h = 7, r = 3, opacity = 0.15, color = "#000" }: { w?: number | string; h?: number; r?: number; opacity?: number; color?: string }) =>
   <div style={{ width: w, height: h, borderRadius: r, background: color, opacity }} />;
