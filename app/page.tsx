@@ -445,6 +445,11 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [isDark, setIsDark] = useState(true);
   const [pricingTab, setPricingTab] = useState<"app"|"web">("app");
+  const [inquiryOpen, setInquiryOpen] = useState(false);
+  const [inquiryPlan, setInquiryPlan] = useState("");
+  const [inquiryText, setInquiryText] = useState("");
+  const [inquiryContact, setInquiryContact] = useState("");
+  const [inquiryDone, setInquiryDone] = useState(false);
   const t = content[lang];
   const c = isDark ? dk : lt;
 
@@ -619,6 +624,23 @@ export default function Home() {
         @keyframes contactSignalFlow {
           from { stroke-dashoffset:0; }
           to   { stroke-dashoffset:-1; }
+        }
+        @keyframes dialogIn {
+          from { opacity:0; transform:scale(0.92) translateY(16px); }
+          to   { opacity:1; transform:scale(1) translateY(0); }
+        }
+        @keyframes dialogOut {
+          from { opacity:1; transform:scale(1) translateY(0); }
+          to   { opacity:0; transform:scale(0.92) translateY(16px); }
+        }
+        @keyframes backdropIn {
+          from { opacity:0; }
+          to   { opacity:1; }
+        }
+        @keyframes checkPop {
+          0%   { transform:scale(0) rotate(-10deg); }
+          60%  { transform:scale(1.2) rotate(4deg); }
+          100% { transform:scale(1) rotate(0deg); }
         }
         @keyframes contactCtaGlow {
           0%,100% { box-shadow:0 0 30px rgba(37,99,235,0.45),0 0 60px rgba(124,58,237,0.18),0 4px 24px rgba(0,0,0,0.5); }
@@ -1718,12 +1740,14 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
-                  <a href="#contact" className="block text-center font-semibold py-3 rounded-full text-[14px]"
+                  <button
+                    onClick={() => { setInquiryPlan(`${plan.name} — ฿${plan.price}`); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
+                    className="block w-full text-center font-semibold py-3 rounded-full text-[14px] cursor-pointer"
                     style={plan.highlight
                       ? { background:"white",color:"#1d4ed8" }
                       : { background: c.iconBg, color: c.eyebrow, border:`1px solid ${isDark?"rgba(59,130,246,0.3)":"rgba(37,99,235,0.25)"}` }
                     }
-                  >{plan.cta}</a>
+                  >{plan.cta}</button>
                 </div>
               ))}
             </div>
@@ -2137,6 +2161,134 @@ export default function Home() {
           </div>
         </footer>
       </div>
+
+      {/* ── Inquiry Dialog ── */}
+      {inquiryOpen && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center px-4"
+          style={{ background:"rgba(2,8,24,0.78)", backdropFilter:"blur(12px)", animation:"backdropIn 0.25s ease" }}
+          onClick={e => { if(e.target===e.currentTarget){ setInquiryOpen(false); } }}
+        >
+          <div
+            className="relative w-full max-w-lg rounded-3xl overflow-hidden"
+            style={{ animation:"dialogIn 0.32s cubic-bezier(0.34,1.56,0.64,1)", background:"linear-gradient(160deg,#070f24,#0c0a28)", border:"1px solid rgba(99,102,241,0.35)", boxShadow:"0 0 0 1px rgba(255,255,255,0.04),0 32px 80px rgba(0,0,0,0.7),0 0 60px rgba(37,99,235,0.18)" }}
+          >
+            {/* Gradient top bar */}
+            <div style={{ height:3, background:"linear-gradient(90deg,#2563eb,#7c3aed,#06b6d4)", borderRadius:"9999px 9999px 0 0" }} />
+
+            {/* Corner HUD brackets */}
+            {([{s:{top:12,left:12},d:"M0 16 L0 0 L16 0"},{s:{top:12,right:12},d:"M16 0 L0 0 L0 16"},{s:{bottom:12,left:12},d:"M0 0 L0 16 L16 16"},{s:{bottom:12,right:12},d:"M16 0 L16 16 L0 16"}] as {s:React.CSSProperties,d:string}[]).map((b,i)=>(
+              <div key={i} className="absolute pointer-events-none" style={b.s}>
+                <svg width="20" height="20" viewBox="0 0 16 16"><path d={b.d} fill="none" stroke="rgba(99,102,241,0.35)" strokeWidth="1.2"/></svg>
+              </div>
+            ))}
+
+            <div className="p-7">
+              {!inquiryDone ? (
+                <>
+                  {/* Header */}
+                  <div className="mb-6">
+                    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1 rounded-full mb-4"
+                      style={{ background:"rgba(99,102,241,0.15)", color:"#a78bfa", border:"1px solid rgba(99,102,241,0.3)" }}>
+                      <span style={{ width:5,height:5,borderRadius:"50%",background:"#a78bfa",display:"inline-block" }} />
+                      {lang==="th"?"แพ็กเกจที่เลือก":"Selected Plan"}
+                    </span>
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-[13px] font-bold px-3 py-1 rounded-full" style={{ background:"linear-gradient(135deg,rgba(37,99,235,0.25),rgba(109,40,217,0.25))", color:"#93c5fd", border:"1px solid rgba(99,102,241,0.3)" }}>
+                        {inquiryPlan}
+                      </span>
+                    </div>
+                    <h2 className="text-2xl font-black leading-snug" style={{ color:"white" }}>
+                      {lang==="th" ? <>บอกเราเลย<br/><span style={{ backgroundImage:"linear-gradient(135deg,#60a5fa,#a78bfa)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text" }}>อยากได้อะไร?</span></> : <>Tell us what<br/><span style={{ backgroundImage:"linear-gradient(135deg,#60a5fa,#a78bfa)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text" }}>you want to build</span></>}
+                    </h2>
+                    <p className="text-sm mt-1.5" style={{ color:"rgba(255,255,255,0.4)" }}>
+                      {lang==="th" ? "เล่าให้ฟัง เราจะรีบติดต่อกลับภายใน 24 ชม." : "Describe your project — we'll get back to you within 24 hrs."}
+                    </p>
+                  </div>
+
+                  {/* Textarea */}
+                  <div className="mb-4">
+                    <textarea
+                      rows={4}
+                      value={inquiryText}
+                      onChange={e => setInquiryText(e.target.value)}
+                      placeholder={lang==="th" ? "เช่น อยากทำ App สำหรับร้านอาหาร รองรับ iOS/Android มีระบบสั่งอาหาร และจัดการออร์เดอร์..." : "e.g. A food ordering app for iOS/Android with order management and a dashboard..."}
+                      className="w-full rounded-2xl text-sm leading-relaxed resize-none outline-none"
+                      style={{ background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.1)", color:"white", padding:"14px 16px", caretColor:"#60a5fa" }}
+                      onFocus={e => { e.currentTarget.style.borderColor="rgba(99,102,241,0.55)"; e.currentTarget.style.boxShadow="0 0 0 3px rgba(99,102,241,0.12)"; }}
+                      onBlur={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.1)"; e.currentTarget.style.boxShadow="none"; }}
+                    />
+                  </div>
+
+                  {/* Contact input */}
+                  <div className="mb-6">
+                    <input
+                      type="text"
+                      value={inquiryContact}
+                      onChange={e => setInquiryContact(e.target.value)}
+                      placeholder={lang==="th" ? "ช่องทางติดต่อกลับ (Line / เบอร์ / Email)" : "How to reach you (Line / Phone / Email)"}
+                      className="w-full rounded-2xl text-sm outline-none"
+                      style={{ background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.1)", color:"white", padding:"13px 16px", caretColor:"#60a5fa" }}
+                      onFocus={e => { e.currentTarget.style.borderColor="rgba(99,102,241,0.55)"; e.currentTarget.style.boxShadow="0 0 0 3px rgba(99,102,241,0.12)"; }}
+                      onBlur={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.1)"; e.currentTarget.style.boxShadow="none"; }}
+                    />
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => setInquiryOpen(false)}
+                      className="flex-1 py-3 rounded-2xl text-sm font-semibold"
+                      style={{ background:"rgba(255,255,255,0.05)", color:"rgba(255,255,255,0.45)", border:"1px solid rgba(255,255,255,0.08)" }}
+                    >
+                      {lang==="th" ? "ยกเลิก" : "Cancel"}
+                    </button>
+                    <button
+                      onClick={() => {
+                        if(!inquiryText.trim()) return;
+                        const msg = `สวัสดีครับ สนใจแพ็กเกจ ${inquiryPlan}\n\nรายละเอียด:\n${inquiryText}${inquiryContact ? `\n\nติดต่อกลับ: ${inquiryContact}` : ""}`;
+                        navigator.clipboard?.writeText(msg).catch(()=>{});
+                        window.open("https://line.me/ti/p/linebeamza","_blank");
+                        setInquiryDone(true);
+                      }}
+                      disabled={!inquiryText.trim()}
+                      className="flex-[2] py-3 rounded-2xl text-sm font-bold flex items-center justify-center gap-2"
+                      style={{ background: inquiryText.trim() ? "linear-gradient(135deg,#2563eb,#7c3aed)" : "rgba(255,255,255,0.08)", color: inquiryText.trim() ? "white" : "rgba(255,255,255,0.25)", transition:"all 0.2s ease", cursor: inquiryText.trim() ? "pointer" : "not-allowed" }}
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      {lang==="th" ? "ส่งหาเราเลย" : "Send to Us"}
+                    </button>
+                  </div>
+                </>
+              ) : (
+                /* Success state */
+                <div className="py-6 flex flex-col items-center text-center gap-4">
+                  <div style={{ width:72,height:72,borderRadius:"50%",background:"linear-gradient(135deg,rgba(37,99,235,0.2),rgba(109,40,217,0.2))",border:"1px solid rgba(99,102,241,0.4)",display:"flex",alignItems:"center",justifyContent:"center",animation:"checkPop 0.5s cubic-bezier(0.34,1.56,0.64,1)" }}>
+                    <CheckCircle className="w-8 h-8" style={{ color:"#60a5fa" }} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black text-white mb-1">{lang==="th" ? "รับแล้ว! 🎉" : "Got it! 🎉"}</h3>
+                    <p className="text-sm" style={{ color:"rgba(255,255,255,0.45)" }}>
+                      {lang==="th" ? "เปิด LINE แล้ว แปะข้อความที่คัดลอกไว้ได้เลยครับ\nเราจะรีบติดต่อกลับภายใน 24 ชม." : "LINE opened — paste your copied message.\nWe'll reply within 24 hrs."}
+                    </p>
+                  </div>
+                  <div className="w-full p-4 rounded-2xl text-left text-xs" style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.07)", color:"rgba(255,255,255,0.35)" }}>
+                    <p className="font-bold mb-1 text-[10px] tracking-widest uppercase" style={{ color:"rgba(99,102,241,0.7)" }}>LINE ID</p>
+                    <p className="font-mono text-sm" style={{ color:"#93c5fd" }}>linebeamza</p>
+                  </div>
+                  <button
+                    onClick={() => setInquiryOpen(false)}
+                    className="w-full py-3 rounded-2xl text-sm font-semibold mt-1"
+                    style={{ background:"rgba(255,255,255,0.05)", color:"rgba(255,255,255,0.55)", border:"1px solid rgba(255,255,255,0.08)" }}
+                  >
+                    {lang==="th" ? "ปิด" : "Close"}
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Back to top */}
       <button
