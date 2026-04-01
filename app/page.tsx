@@ -763,7 +763,7 @@ function HeroWireframe({ dark }: { dark: boolean }) {
   });
 
   return (
-    <svg viewBox="0 0 430 570" width="360" height="477" xmlns="http://www.w3.org/2000/svg"
+    <svg viewBox="0 0 430 570" width="100%" style={{ display:"block" }} xmlns="http://www.w3.org/2000/svg"
       style={{ filter: dark ? "drop-shadow(0 0 44px rgba(96,165,250,0.16))" : "drop-shadow(0 0 32px rgba(37,99,235,0.13))" }}>
 
       {/* ── Corner registration marks ── */}
@@ -1596,7 +1596,7 @@ export default function Home() {
               </div>
 
               {/* ── Wireframe drawing animation ── */}
-              <div className="hidden lg:flex flex-shrink-0 items-center justify-center">
+              <div className="flex flex-shrink-0 items-center justify-center w-full lg:w-auto" style={{ maxWidth: "min(360px, 88vw)" }}>
                 <HeroWireframe dark={isDark} />
               </div>
 
