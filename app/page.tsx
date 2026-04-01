@@ -750,7 +750,6 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isDark, setIsDark] = useState(true);
-  const [pricingTab, setPricingTab] = useState<"app"|"web">("app");
   const [inquiryOpen, setInquiryOpen] = useState(false);
   const [inquiryPlan, setInquiryPlan] = useState("");
   const [inquiryText, setInquiryText] = useState("");
@@ -2003,29 +2002,14 @@ export default function Home() {
                 <span style={{ color: c.text }}>{t.pricing.titleSub}</span>
               </h2>
             </div>
-            {/* ── Tab toggle ── */}
-            <div className="reveal flex justify-center mb-12">
-              <div style={{ display:"inline-flex", background:isDark?"rgba(255,255,255,0.04)":"rgba(0,0,0,0.04)", border:`1px solid ${isDark?"rgba(255,255,255,0.08)":"rgba(0,0,0,0.08)"}`, borderRadius:14, padding:4, gap:4 }}>
-                {(["app","web"] as const).map(tab => (
-                  <button key={tab} onClick={() => setPricingTab(tab)}
-                    style={{ display:"flex", alignItems:"center", gap:8, padding:"10px 24px", borderRadius:10, border:"none", fontSize:14, fontWeight:600, cursor:"pointer", transition:"all 0.2s",
-                      background: pricingTab === tab ? c.eyebrow : "transparent",
-                      color: pricingTab === tab ? "#fff" : c.textMuted,
-                      fontFamily:"var(--font-prompt), sans-serif",
-                    }}>
-                    {tab === "app" ? <Smartphone className="w-4 h-4" /> : <Globe className="w-4 h-4" />}
-                    {tab === "app" ? t.pricing.tabApp : t.pricing.tabWeb}
-                  </button>
-                ))}
-              </div>
+            {/* ── Flutter App section ── */}
+            <div className="reveal flex items-center gap-3 mb-8">
+              <Smartphone style={{ width:18, height:18, color:c.eyebrow }} />
+              <span style={{ fontSize:16, fontWeight:800, color:c.eyebrow }}>{t.pricing.tabApp}</span>
+              <div style={{ flex:1, height:1, background:isDark?"rgba(255,255,255,0.07)":"rgba(0,0,0,0.07)" }} />
             </div>
-
-            {/* ── Mockup grid ── */}
-            <div className="grid md:grid-cols-3 gap-8 mb-10" style={{ alignItems:"start" }}>
-              {(pricingTab === "app"
-                ? t.pricing.plans.map((plan, i) => ({ ...plan, comp: [<MAppBasic key={0} dark={isDark}/>, <MAppStandard key={1} dark={isDark}/>, <MAppPremium key={2} dark={isDark}/>][i], isApp: true }))
-                : t.pricing.webPlans.map((plan, i) => ({ ...plan, comp: [<MWebLanding key={0} dark={isDark}/>, <MWebBusiness key={1} dark={isDark}/>, <MWebApp key={2} dark={isDark}/>][i], isApp: false }))
-              ).map((item, i) => (
+            <div className="grid md:grid-cols-3 gap-8 mb-16" style={{ alignItems:"start" }}>
+              {t.pricing.plans.map((plan, i) => ({ ...plan, comp: [<MAppBasic key={0} dark={isDark}/>, <MAppStandard key={1} dark={isDark}/>, <MAppPremium key={2} dark={isDark}/>][i], isApp: true })).map((item, i) => (
                 <div key={i} className="reveal" style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:16 }}>
                   <div style={{ width:"100%", padding: item.isApp ? "0 16px" : "0", position:"relative",
                     filter: item.highlight ? "drop-shadow(0 0 28px rgba(96,165,250,0.28))" : "none",
@@ -2071,6 +2055,60 @@ export default function Home() {
                 </div>
               ))}
             </div>
+
+            {/* ── Web section ── */}
+            <div className="reveal flex items-center gap-3 mb-8">
+              <Globe style={{ width:18, height:18, color:c.eyebrow }} />
+              <span style={{ fontSize:16, fontWeight:800, color:c.eyebrow }}>{t.pricing.tabWeb}</span>
+              <div style={{ flex:1, height:1, background:isDark?"rgba(255,255,255,0.07)":"rgba(0,0,0,0.07)" }} />
+            </div>
+            <div className="grid md:grid-cols-3 gap-8 mb-10" style={{ alignItems:"start" }}>
+              {t.pricing.webPlans.map((plan, i) => ({ ...plan, comp: [<MWebLanding key={0} dark={isDark}/>, <MWebBusiness key={1} dark={isDark}/>, <MWebApp key={2} dark={isDark}/>][i], isApp: false })).map((item, i) => (
+                <div key={i} className="reveal" style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:16 }}>
+                  <div style={{ width:"100%", padding:"0", position:"relative",
+                    filter: item.highlight ? "drop-shadow(0 0 28px rgba(96,165,250,0.28))" : "none",
+                  }}>
+                    {item.highlight && (
+                      <div style={{ position:"absolute", top:-12, left:"50%", transform:"translateX(-50%)",
+                        background:"linear-gradient(90deg,#60a5fa,#a78bfa)", color:"#fff", fontSize:10, fontWeight:800,
+                        letterSpacing:"0.1em", padding:"3px 14px", borderRadius:99, whiteSpace:"nowrap", zIndex:2,
+                      }}>POPULAR</div>
+                    )}
+                    <div style={{ border: item.highlight ? "1px solid rgba(96,165,250,0.35)" : `1px solid ${c.cardBorder}`,
+                      borderRadius:12, overflow:"hidden",
+                    }}>
+                      {item.comp}
+                    </div>
+                  </div>
+                  <div style={{ textAlign:"center" }}>
+                    <div style={{ fontSize:15, fontWeight:800, color: item.highlight ? c.eyebrow : c.text, marginBottom:3 }}>
+                      {item.name}
+                    </div>
+                    <div style={{ fontSize:22, fontWeight:900, color: item.highlight ? c.eyebrow : c.text, letterSpacing:"-0.02em", marginBottom:4 }}>
+                      ฿{item.price}
+                    </div>
+                    <div style={{ fontSize:13, color:c.textMuted, marginBottom:14, lineHeight:1.5 }}>{item.desc}</div>
+                    <ul style={{ listStyle:"none", padding:0, margin:"0 0 18px", display:"flex", flexDirection:"column", gap:7, textAlign:"left" }}>
+                      {item.features.map((f: string, j: number) => (
+                        <li key={j} style={{ display:"flex", alignItems:"flex-start", gap:8, fontSize:13 }}>
+                          <CheckCircle style={{ width:14, height:14, marginTop:2, flexShrink:0, color: item.highlight ? c.eyebrow : "#4ade80" }} />
+                          <span style={{ color: c.textMuted }}>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() => { setInquiryPlan(`Web · ${item.name} — ฿${item.price}`); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
+                      style={{ padding:"10px 28px", borderRadius:99, fontSize:13.5, fontWeight:700, cursor:"pointer",
+                        background: item.highlight ? c.eyebrow : "transparent",
+                        color: item.highlight ? "#fff" : c.eyebrow,
+                        border: item.highlight ? "none" : `1.5px solid ${isDark?"rgba(96,165,250,0.4)":"rgba(37,99,235,0.35)"}`,
+                        fontFamily:"var(--font-prompt), sans-serif",
+                      }}>{item.cta}</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
             <p className="text-center text-sm mt-8" style={{ color: c.noteCol }}>{t.pricing.note}</p>
             <div className="text-center mt-4">
               <a href="/packages" style={{ color: c.eyebrow, fontSize: 14, fontWeight: 600, textDecoration: "none", opacity: 0.85 }}
