@@ -747,9 +747,12 @@ function MWebApp({ dark }: { dark: boolean }) {
 
 // ─── Hero Wireframe Drawing Animation ────────────────────────────────────────
 function HeroWireframe({ dark }: { dark: boolean }) {
-  const s = (o: number) => dark ? `rgba(96,165,250,${o})` : `rgba(37,99,235,${o})`;
-  const bg = dark ? "#070f1e" : "#f0f5ff";
-  const scr = dark ? "rgba(4,10,25,0.92)" : "rgba(214,225,255,0.55)";
+  const s  = (o: number) => dark ? `rgba(96,165,250,${o})`  : `rgba(37,99,235,${o})`;
+  const sv = (o: number) => dark ? `rgba(167,139,250,${o})` : `rgba(109,40,217,${o})`;   // violet accent for web
+  const bg  = dark ? "#070f1e" : "#f0f5ff";
+  const bgW = dark ? "#0b1220" : "#f5f0ff";                                                // browser bg (violet tint)
+  const scr  = dark ? "rgba(4,10,25,0.92)"  : "rgba(214,225,255,0.55)";
+  const scrW = dark ? "rgba(6,4,22,0.88)"   : "rgba(237,233,254,0.6)";
 
   const drw = (t: number, d = 0.65): React.CSSProperties => ({
     animation: `heroDraw ${d}s cubic-bezier(0.4,0,0.2,1) ${t}s both`,
@@ -760,119 +763,229 @@ function HeroWireframe({ dark }: { dark: boolean }) {
   });
 
   return (
-    <svg viewBox="0 0 300 590" width="260" height="511" xmlns="http://www.w3.org/2000/svg"
-      style={{ filter: dark ? "drop-shadow(0 0 40px rgba(96,165,250,0.18))" : "drop-shadow(0 0 30px rgba(37,99,235,0.14))" }}>
+    <svg viewBox="0 0 430 570" width="360" height="477" xmlns="http://www.w3.org/2000/svg"
+      style={{ filter: dark ? "drop-shadow(0 0 44px rgba(96,165,250,0.16))" : "drop-shadow(0 0 32px rgba(37,99,235,0.13))" }}>
 
-      {/* Corner marks — appear first to "frame" the drawing */}
-      {([[10,10,1,1],[290,10,-1,1],[290,580,-1,-1],[10,580,1,-1]] as [number,number,number,number][]).map(([x,y,dx,dy],i) => (
+      {/* ── Corner registration marks ── */}
+      {([[5,5,1,1],[425,5,-1,1],[425,565,-1,-1],[5,565,1,-1]] as [number,number,number,number][]).map(([x,y,dx,dy],i) => (
         <g key={i}>
-          <line x1={x} y1={y} x2={x+dx*18} y2={y} stroke={s(0.6)} strokeWidth="1.2" style={fi(0.0+i*0.04, 0.25)} />
-          <line x1={x} y1={y} x2={x} y2={y+dy*18} stroke={s(0.6)} strokeWidth="1.2" style={fi(0.0+i*0.04, 0.25)} />
+          <line x1={x} y1={y} x2={x+dx*16} y2={y} stroke={s(0.45)} strokeWidth="1" style={fi(i*0.05, 0.2)} />
+          <line x1={x} y1={y} x2={x} y2={y+dy*16} stroke={s(0.45)} strokeWidth="1" style={fi(i*0.05, 0.2)} />
         </g>
       ))}
 
-      {/* Phone body fill */}
-      <rect x="10" y="10" width="280" height="570" rx="30" fill={bg} style={fi(0.1, 1.4)} />
+      {/* ════════════════════════════════════════════════
+          LAYER 1 — BROWSER WINDOW (web, drawn first)
+          ════════════════════════════════════════════════ */}
 
-      {/* Phone body outline — draws in */}
-      <rect x="10" y="10" width="280" height="570" rx="30"
-        fill="none" stroke={s(0.88)} strokeWidth="1.5"
+      {/* Browser shadow */}
+      <rect x="8" y="22" width="298" height="238" rx="10" fill={dark?"rgba(0,0,0,0.35)":"rgba(0,0,50,0.09)"} style={fi(0.05, 1.2)} />
+
+      {/* Browser body fill */}
+      <rect x="5" y="18" width="298" height="236" rx="10" fill={bgW} style={fi(0.1, 1.0)} />
+
+      {/* Browser outline */}
+      <rect x="5" y="18" width="298" height="236" rx="10"
+        fill="none" stroke={sv(0.75)} strokeWidth="1.4"
         pathLength="1" strokeDasharray="1" strokeDashoffset="1"
-        style={drw(0.1, 1.6)} />
+        style={drw(0.1, 1.2)} />
 
-      {/* Dynamic island */}
-      <rect x="103" y="10" width="94" height="26" rx="13"
-        fill={bg} stroke={s(0.6)} strokeWidth="1"
-        pathLength="1" strokeDasharray="1" strokeDashoffset="1"
-        style={drw(0.9, 0.4)} />
+      {/* Chrome bar fill */}
+      <rect x="5" y="18" width="298" height="32" rx="10" fill={dark?"rgba(15,8,40,0.9)":"rgba(230,220,255,0.8)"} style={fi(0.3, 0.6)} />
+      <rect x="5" y="36" width="298" height="14" fill={dark?"rgba(15,8,40,0.9)":"rgba(230,220,255,0.8)"} style={fi(0.3, 0.6)} />
+      <line x1="5" y1="50" x2="303" y2="50" stroke={sv(0.18)} strokeWidth="0.6" style={fi(0.8)} />
 
-      {/* Screen area */}
-      <rect x="10" y="52" width="280" height="490" fill={scr} style={fi(1.3, 0.8)} />
-
-      {/* ── Status bar ── */}
-      <text x="28" y="80" fontSize="9" fill={s(0.5)} fontFamily="monospace" style={fi(1.45, 0.3)}>9:41</text>
-      <rect x="220" y="70" width="22" height="10" rx="2" fill="none" stroke={s(0.4)} strokeWidth="0.8"
-        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(1.45, 0.3)} />
-      <rect x="222" y="72" width="16" height="6" rx="1" fill={s(0.35)} style={fi(1.7, 0.2)} />
-      <line x1="10" y1="94" x2="290" y2="94" stroke={s(0.1)} strokeWidth="0.5" style={fi(1.5)} />
-
-      {/* ── App nav bar ── */}
-      <rect x="28" y="101" width="30" height="22" rx="4" fill="none" stroke={s(0.55)} strokeWidth="0.8"
-        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(1.6, 0.3)} />
-      <rect x="33" y="107" width="20" height="10" rx="2" fill={s(0.22)} style={fi(1.85, 0.2)} />
-      {[0,5,10].map((dy, i) => (
-        <line key={i} x1={240} y1={105+dy} x2={265} y2={105+dy}
-          stroke={s(0.5)} strokeWidth="1.2" strokeLinecap="round" style={fi(1.65+i*0.05)} />
+      {/* Traffic lights */}
+      {[0,1,2].map(i => (
+        <circle key={i} cx={20+i*14} cy={34} r="4.5"
+          fill="none" stroke={sv(0.5)} strokeWidth="0.7"
+          pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+          style={drw(0.6+i*0.07, 0.2)} />
       ))}
-      <line x1="10" y1="130" x2="290" y2="130" stroke={s(0.09)} strokeWidth="0.5" style={fi(1.8)} />
 
-      {/* ── Hero/banner area ── */}
-      <rect x="20" y="138" width="260" height="112" rx="8" fill="none" stroke={s(0.5)} strokeWidth="0.9"
-        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(1.9, 0.75)} />
-      {/* Text lines left */}
-      <rect x="32" y="150" width="120" height="10" rx="2.5" fill={s(0.22)} style={fi(2.55, 0.3)} />
-      <rect x="32" y="164" width="88" height="7" rx="2"  fill={s(0.12)} style={fi(2.62, 0.25)} />
-      <rect x="32" y="174" width="105" height="7" rx="2" fill={s(0.12)} style={fi(2.68, 0.25)} />
-      {/* CTA inside hero */}
-      <rect x="32" y="190" width="72" height="24" rx="12" fill="none" stroke={s(0.65)} strokeWidth="0.9"
-        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(2.55, 0.4)} />
-      <rect x="36" y="194" width="64" height="16" rx="8" fill={s(0.18)} style={fi(2.9, 0.2)} />
-      {/* Image placeholder right */}
-      <rect x="178" y="144" width="88" height="98" rx="6" fill="none" stroke={s(0.3)} strokeWidth="0.7"
-        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(2.2, 0.5)} />
-      <line x1="178" y1="144" x2="266" y2="242" stroke={s(0.13)} strokeWidth="0.5" style={fi(2.65)} />
-      <line x1="266" y1="144" x2="178" y2="242" stroke={s(0.13)} strokeWidth="0.5" style={fi(2.65)} />
+      {/* URL bar */}
+      <rect x="56" y="26" width="160" height="16" rx="8"
+        fill="none" stroke={sv(0.4)} strokeWidth="0.7"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+        style={drw(0.85, 0.4)} />
+      <rect x="60" y="30" width="85" height="8" rx="3" fill={sv(0.18)} style={fi(1.2, 0.25)} />
 
-      {/* ── Cards row ── */}
+      {/* Browser content area */}
+      <rect x="5" y="50" width="298" height="204" fill={scrW} style={fi(0.9, 0.7)} />
+
+      {/* Web nav bar */}
+      <rect x="16" y="58" width="26" height="16" rx="3"
+        fill="none" stroke={sv(0.5)} strokeWidth="0.7"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+        style={drw(1.1, 0.25)} />
+      <rect x="18" y="62" width="22" height="8" rx="2" fill={sv(0.2)} style={fi(1.3, 0.2)} />
+      {[70,100,130,160].map((x,i) => (
+        <rect key={i} x={x} y={62} width={22} height={7} rx="2" fill={sv(0.12)} style={fi(1.15+i*0.05, 0.2)} />
+      ))}
+      <rect x="240" y="58" width="48" height="16" rx="8"
+        fill="none" stroke={sv(0.55)} strokeWidth="0.8"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+        style={drw(1.25, 0.3)} />
+      <rect x="244" y="62" width="40" height="8" rx="4" fill={sv(0.2)} style={fi(1.5, 0.2)} />
+      <line x1="5" y1="80" x2="303" y2="80" stroke={sv(0.1)} strokeWidth="0.5" style={fi(1.3)} />
+
+      {/* Web hero text section */}
+      <rect x="18" y="90"  width="140" height="12" rx="3" fill={sv(0.28)} style={fi(1.5, 0.3)} />
+      <rect x="18" y="107" width="105" height="8"  rx="2" fill={sv(0.14)} style={fi(1.58, 0.25)} />
+      <rect x="18" y="119" width="120" height="8"  rx="2" fill={sv(0.14)} style={fi(1.64, 0.25)} />
+      <rect x="18" y="133" width="64"  height="20" rx="10"
+        fill="none" stroke={sv(0.65)} strokeWidth="0.9"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+        style={drw(1.8, 0.4)} />
+      <rect x="22" y="137" width="56" height="12" rx="6" fill={sv(0.2)} style={fi(2.1, 0.2)} />
+
+      {/* Web hero image placeholder */}
+      <rect x="175" y="86" width="112" height="80" rx="6"
+        fill="none" stroke={sv(0.3)} strokeWidth="0.7"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+        style={drw(1.6, 0.45)} />
+      <line x1="175" y1="86" x2="287" y2="166" stroke={sv(0.12)} strokeWidth="0.5" style={fi(2.0)} />
+      <line x1="287" y1="86" x2="175" y2="166" stroke={sv(0.12)} strokeWidth="0.5" style={fi(2.0)} />
+
+      {/* Web feature cards strip */}
       {[0,1,2].map(i => (
         <g key={i}>
-          <rect x={20+i*90} y="264" width="78" height="68" rx="8" fill="none" stroke={s(0.45)} strokeWidth="0.8"
-            pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(2.75+i*0.13, 0.45)} />
-          <circle cx={20+i*90+16} cy={280} r="8" fill="none" stroke={s(0.4)} strokeWidth="0.75"
-            pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(2.9+i*0.13, 0.28)} />
-          <rect x={20+i*90+8} y={293} width={60} height={6}  rx="2" fill={s(0.2)}  style={fi(3.05+i*0.1, 0.2)} />
-          <rect x={20+i*90+8} y={302} width={45} height={5}  rx="2" fill={s(0.12)} style={fi(3.12+i*0.1, 0.2)} />
-          <rect x={20+i*90+8} y={312} width={55} height={4.5} rx="2" fill={s(0.1)} style={fi(3.18+i*0.1, 0.2)} />
+          <rect x={16+i*96} y={176} width={84} height={66} rx="6"
+            fill="none" stroke={sv(0.38)} strokeWidth="0.7"
+            pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+            style={drw(2.1+i*0.1, 0.38)} />
+          <circle cx={16+i*96+14} cy={192} r="7"
+            fill="none" stroke={sv(0.38)} strokeWidth="0.65"
+            pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+            style={drw(2.22+i*0.1, 0.22)} />
+          <rect x={16+i*96+6} y={204} width={70} height={5.5} rx="2" fill={sv(0.18)} style={fi(2.35+i*0.08, 0.18)} />
+          <rect x={16+i*96+6} y={213} width={55} height={4.5} rx="2" fill={sv(0.1)}  style={fi(2.42+i*0.08, 0.18)} />
+          <rect x={16+i*96+6} y={222} width={62} height={4.5} rx="2" fill={sv(0.1)}  style={fi(2.48+i*0.08, 0.18)} />
         </g>
       ))}
 
-      {/* ── Section heading + text lines ── */}
-      <rect x="28" y="347" width="95" height="9" rx="2.5" fill={s(0.3)} style={fi(3.25, 0.25)} />
-      {[358, 370, 382, 394].map((y, i) => (
-        <rect key={i} x="28" y={y} width={i%2===0 ? 234 : 175} height="5.5" rx="2"
-          fill={s(0.12)} style={fi(3.35+i*0.06, 0.2)} />
+      {/* WEB label */}
+      <text x="11" y="15" fontSize="7" fill={sv(0.45)} fontFamily="monospace" letterSpacing="0.1em"
+        style={fi(0.6, 0.4)}>WEB</text>
+
+      {/* ════════════════════════════════════════════════
+          LAYER 2 — PHONE (app, drawn on top of browser)
+          ════════════════════════════════════════════════ */}
+
+      {/* Drop shadow for phone depth */}
+      <rect x="160" y="68" width="262" height="498" rx="30"
+        fill={dark?"rgba(0,0,0,0.45)":"rgba(10,10,60,0.14)"} style={fi(1.4, 1.0)} />
+
+      {/* Phone body fill */}
+      <rect x="155" y="62" width="262" height="500" rx="30" fill={bg} style={fi(1.5, 1.0)} />
+
+      {/* Phone body outline */}
+      <rect x="155" y="62" width="262" height="500" rx="30"
+        fill="none" stroke={s(0.88)} strokeWidth="1.5"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+        style={drw(1.5, 1.4)} />
+
+      {/* Dynamic island */}
+      <rect x="243" y="62" width="90" height="25" rx="12"
+        fill={bg} stroke={s(0.6)} strokeWidth="1"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+        style={drw(2.1, 0.38)} />
+
+      {/* Screen area */}
+      <rect x="155" y="100" width="262" height="430" fill={scr} style={fi(2.3, 0.8)} />
+
+      {/* Status bar */}
+      <text x="171" y="126" fontSize="8.5" fill={s(0.5)} fontFamily="monospace" style={fi(2.45, 0.3)}>9:41</text>
+      <rect x="364" y="116" width="22" height="10" rx="2" fill="none" stroke={s(0.4)} strokeWidth="0.8"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(2.45, 0.3)} />
+      <rect x="366" y="118" width="16" height="6" rx="1" fill={s(0.35)} style={fi(2.7, 0.2)} />
+      <line x1="155" y1="140" x2="417" y2="140" stroke={s(0.1)} strokeWidth="0.5" style={fi(2.5)} />
+
+      {/* App nav */}
+      <rect x="170" y="148" width="28" height="20" rx="3" fill="none" stroke={s(0.55)} strokeWidth="0.75"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(2.6, 0.28)} />
+      <rect x="175" y="153" width="18" height="10" rx="2" fill={s(0.22)} style={fi(2.85, 0.2)} />
+      {[0,5,10].map((dy, i) => (
+        <line key={i} x1={372} y1={150+dy} x2={400} y2={150+dy}
+          stroke={s(0.5)} strokeWidth="1.2" strokeLinecap="round" style={fi(2.65+i*0.05)} />
+      ))}
+      <line x1="155" y1="175" x2="417" y2="175" stroke={s(0.09)} strokeWidth="0.5" style={fi(2.7)} />
+
+      {/* App hero/banner area */}
+      <rect x="163" y="182" width="244" height="104" rx="7"
+        fill="none" stroke={s(0.5)} strokeWidth="0.85"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+        style={drw(2.8, 0.65)} />
+      <rect x="174" y="194" width="110" height="10" rx="2.5" fill={s(0.22)} style={fi(3.4, 0.28)} />
+      <rect x="174" y="208" width="80"  height="7" rx="2"   fill={s(0.12)} style={fi(3.47, 0.22)} />
+      <rect x="174" y="218" width="96"  height="7" rx="2"   fill={s(0.12)} style={fi(3.52, 0.22)} />
+      <rect x="174" y="232" width="68"  height="22" rx="11" fill="none" stroke={s(0.65)} strokeWidth="0.85"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(3.4, 0.38)} />
+      <rect x="178" y="236" width="60" height="14" rx="7" fill={s(0.18)} style={fi(3.75, 0.2)} />
+      <rect x="318" y="188" width="80" height="90" rx="6"
+        fill="none" stroke={s(0.3)} strokeWidth="0.65"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(3.1, 0.45)} />
+      <line x1="318" y1="188" x2="398" y2="278" stroke={s(0.12)} strokeWidth="0.5" style={fi(3.5)} />
+      <line x1="398" y1="188" x2="318" y2="278" stroke={s(0.12)} strokeWidth="0.5" style={fi(3.5)} />
+
+      {/* App cards */}
+      {[0,1,2].map(i => (
+        <g key={i}>
+          <rect x={163+i*84} y={298} width={74} height={62} rx="7"
+            fill="none" stroke={s(0.45)} strokeWidth="0.75"
+            pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+            style={drw(3.55+i*0.12, 0.42)} />
+          <circle cx={163+i*84+14} cy={313} r="7.5"
+            fill="none" stroke={s(0.4)} strokeWidth="0.7"
+            pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+            style={drw(3.68+i*0.12, 0.25)} />
+          <rect x={163+i*84+7} y={325} width={58} height={5.5} rx="2" fill={s(0.2)}  style={fi(3.8+i*0.09, 0.18)} />
+          <rect x={163+i*84+7} y={334} width={44} height={4.5} rx="2" fill={s(0.12)} style={fi(3.87+i*0.09, 0.18)} />
+          <rect x={163+i*84+7} y={342} width={52} height={4}   rx="2" fill={s(0.1)}  style={fi(3.93+i*0.09, 0.18)} />
+        </g>
       ))}
 
-      {/* ── CTA button ── */}
-      <rect x="50" y="413" width="200" height="42" rx="21" fill="none" stroke={s(0.72)} strokeWidth="1.3"
-        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(3.6, 0.55)} />
-      <rect x="54" y="417" width="192" height="34" rx="17" fill={s(0.15)} style={fi(4.1, 0.3)} />
-      <rect x="100" y="427" width="100" height="14" rx="3.5" fill={s(0.25)} style={fi(4.15, 0.25)} />
+      {/* Text section */}
+      <rect x="170" y="374" width="90" height="8.5" rx="2.5" fill={s(0.28)} style={fi(3.9, 0.22)} />
+      {[384,395,406,417].map((y, i) => (
+        <rect key={i} x="170" y={y} width={i%2===0 ? 225 : 170} height="5" rx="2"
+          fill={s(0.11)} style={fi(3.98+i*0.06, 0.18)} />
+      ))}
 
-      {/* ── Blinking cursor dot (pen tip) ── */}
-      <circle cx="250" cy="455" r="3.5" fill={s(0.9)}
-        style={{ animation: "heroPenBlink 1.1s ease-in-out 4.1s infinite" }} />
-      <circle cx="250" cy="455" r="7" fill="none" stroke={s(0.35)} strokeWidth="0.8"
-        style={{ animation: "heroPenBlink 1.1s ease-in-out 4.1s infinite", opacity:0 }} />
+      {/* CTA button */}
+      <rect x="193" y="436" width="188" height="38" rx="19"
+        fill="none" stroke={s(0.72)} strokeWidth="1.2"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+        style={drw(4.2, 0.5)} />
+      <rect x="197" y="440" width="180" height="30" rx="15" fill={s(0.15)} style={fi(4.65, 0.28)} />
+      <rect x="240" y="449" width="94"  height="12" rx="3"  fill={s(0.25)} style={fi(4.7, 0.22)} />
 
-      {/* ── Bottom nav ── */}
-      <line x1="10" y1="504" x2="290" y2="504" stroke={s(0.14)} strokeWidth="0.6" style={fi(3.9)} />
+      {/* Bottom nav */}
+      <line x1="155" y1="496" x2="417" y2="496" stroke={s(0.13)} strokeWidth="0.5" style={fi(4.1)} />
       {[0,1,2,3].map(i => (
         <g key={i}>
-          <circle cx={47+i*66} cy={524} r="10" fill="none" stroke={s(0.42)} strokeWidth="0.8"
-            pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(3.9+i*0.09, 0.3)} />
-          <rect x={31+i*66} y={538} width="32" height="5" rx="2" fill={s(0.14)} style={fi(4.05+i*0.06, 0.2)} />
+          <circle cx={178+i*62} cy={515} r="9" fill="none" stroke={s(0.42)} strokeWidth="0.75"
+            pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(4.1+i*0.08, 0.28)} />
+          <rect x={163+i*62} y={528} width="30" height="4.5" rx="2" fill={s(0.13)} style={fi(4.25+i*0.06, 0.18)} />
         </g>
       ))}
 
-      {/* ── Annotation lines ── */}
-      <line x1="2" y1="52" x2="2" y2="543" stroke={s(0.22)} strokeWidth="0.5" strokeDasharray="3 2" style={fi(4.2, 0.5)} />
-      <line x1="2" y1="52"  x2="10" y2="52"  stroke={s(0.22)} strokeWidth="0.5" style={fi(4.2, 0.5)} />
-      <line x1="2" y1="543" x2="10" y2="543" stroke={s(0.22)} strokeWidth="0.5" style={fi(4.2, 0.5)} />
-      <text x="298" y="310" fontSize="7.5" fill={s(0.35)} fontFamily="monospace"
-        textAnchor="end" style={fi(4.3, 0.4)}>SCREEN</text>
-      <text x="20" y="586" fontSize="7.5" fill={s(0.35)} fontFamily="monospace" letterSpacing="0.12em"
-        style={fi(4.4, 0.5)}>MATA SOFT · APP v1.0</text>
+      {/* Blinking pen cursor */}
+      <circle cx="395" cy="478" r="3.5" fill={s(0.9)}
+        style={{ animation: "heroPenBlink 1.1s ease-in-out 4.7s infinite" }} />
+      <circle cx="395" cy="478" r="8" fill="none" stroke={s(0.3)} strokeWidth="0.8"
+        style={{ animation: "heroPenBlink 1.1s ease-in-out 4.7s infinite", opacity:0 }} />
+
+      {/* APP label */}
+      <text x="161" y="58" fontSize="7" fill={s(0.45)} fontFamily="monospace" letterSpacing="0.1em"
+        style={fi(1.8, 0.4)}>APP</text>
+
+      {/* Annotation */}
+      <line x1="426" y1="62" x2="426" y2="560" stroke={s(0.2)} strokeWidth="0.5" strokeDasharray="3 2" style={fi(4.8, 0.5)} />
+      <line x1="426" y1="62"  x2="417" y2="62"  stroke={s(0.2)} strokeWidth="0.5" style={fi(4.8, 0.5)} />
+      <line x1="426" y1="560" x2="417" y2="560" stroke={s(0.2)} strokeWidth="0.5" style={fi(4.8, 0.5)} />
+      <text x="420" y="14" fontSize="7.5" fill={s(0.3)} fontFamily="monospace" letterSpacing="0.1em"
+        textAnchor="end" style={fi(4.9, 0.5)}>MATA SOFT · v2.0</text>
     </svg>
   );
 }
