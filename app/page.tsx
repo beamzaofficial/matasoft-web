@@ -2897,6 +2897,9 @@ export default function Home() {
                   <li className="text-xs" style={{ color:c.noteCol }}>contact@matasoft.dev</li>
                   <li className="text-xs" style={{ color:c.noteCol }}>0943218118 · มิติ</li>
                   <li className="text-xs" style={{ color:c.noteCol }}>Line: @linebeamza</li>
+                  <li className="text-xs leading-relaxed" style={{ color:c.noteCol }}>
+                    {lang==="th" ? <>101/266 หมู่ 11 ต.บางบัวทอง<br/>อ.บางบัวทอง จ.นนทบุรี 11110</> : <>101/266 Moo 11, Bang Bua Thong<br/>Bang Bua Thong, Nonthaburi 11110</>}
+                  </li>
                   <li><a href="https://matasoft.dev" className="text-xs" style={{ color:c.eyebrow }}>matasoft.dev</a></li>
                 </ul>
               </div>
