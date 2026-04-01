@@ -104,6 +104,7 @@ const content = {
       title: "เรียบง่าย",
       titleSub: "ไม่มีค่าใช้จ่ายซ่อนเร้น",
       note: "* ราคาจริงคำนวณตาม scope งาน ติดต่อเพื่อรับใบเสนอราคา",
+      compareLink: "เปรียบเทียบแพ็คเกจทั้งหมด →",
       plans: [
         {
           name: "Basic",
@@ -282,6 +283,7 @@ const content = {
       title: "Simple",
       titleSub: "No Hidden Fees",
       note: "* Actual cost calculated based on scope. Contact us for a custom quote.",
+      compareLink: "Compare all packages →",
       plans: [
         {
           name: "Basic",
@@ -1822,6 +1824,12 @@ export default function Home() {
               ))}
             </div>
             <p className="text-center text-sm mt-8" style={{ color: c.noteCol }}>{t.pricing.note}</p>
+            <div className="text-center mt-4">
+              <a href="/packages" style={{ color: c.eyebrow, fontSize: 14, fontWeight: 600, textDecoration: "none", opacity: 0.85 }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+                onMouseLeave={e => (e.currentTarget.style.opacity = "0.85")}
+              >{t.pricing.compareLink}</a>
+            </div>
           </div>
         </section>
 
