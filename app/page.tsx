@@ -441,6 +441,300 @@ const iconMap: Record<string, React.ReactNode> = {
   star: <Star className="w-5 h-5" />,
 };
 
+// ─── Pricing Mockup SVGs ──────────────────────────────────────────────────────
+
+const Wp = (o: number) => `rgba(96,165,250,${o})`;
+
+function MPhoneShell({ children }: { children: React.ReactNode }) {
+  return (
+    <svg viewBox="0 0 200 400" style={{ width: "100%", display: "block" }}>
+      <rect x="0" y="0" width="200" height="400" rx="26" fill="#0b1a30" stroke={Wp(0.35)} strokeWidth="1.5" />
+      <rect x="9" y="18" width="182" height="352" rx="5" fill="#060f22" />
+      <rect x="80" y="9" width="40" height="7" rx="3.5" fill="#060f22" />
+      <rect x="76" y="385" width="48" height="5" rx="2.5" fill={Wp(0.28)} />
+      {children}
+    </svg>
+  );
+}
+
+function MBrowserShell({ children }: { children: React.ReactNode }) {
+  return (
+    <svg viewBox="0 0 380 250" style={{ width: "100%", display: "block" }}>
+      <rect x="0" y="0" width="380" height="250" rx="10" fill="#0b1a30" stroke={Wp(0.3)} strokeWidth="1.2" />
+      <rect x="0" y="0" width="380" height="32" rx="10" fill={Wp(0.07)} />
+      <rect x="0" y="22" width="380" height="10" fill={Wp(0.07)} />
+      <circle cx="16" cy="16" r="4.5" fill={Wp(0.35)} />
+      <circle cx="30" cy="16" r="4.5" fill={Wp(0.2)} />
+      <circle cx="44" cy="16" r="4.5" fill={Wp(0.12)} />
+      <rect x="60" y="9" width="260" height="14" rx="7" fill={Wp(0.1)} stroke={Wp(0.15)} strokeWidth="0.8" />
+      <rect x="70" y="13" width="120" height="6" rx="2" fill={Wp(0.3)} />
+      <rect x="0" y="32" width="380" height="218" rx="0" fill="#060f22" />
+      <rect x="0" y="240" width="380" height="10" rx="10" fill="#060f22" />
+      {children}
+    </svg>
+  );
+}
+
+function MAppBasic() {
+  return (
+    <MPhoneShell>
+      <text x="17" y="34" fontSize="8" fill={Wp(0.45)} fontFamily="monospace">9:41</text>
+      <rect x="170" y="25" width="16" height="7" rx="2" fill="none" stroke={Wp(0.35)} strokeWidth="0.8" />
+      <rect x="171" y="26" width="10" height="5" rx="1" fill={Wp(0.35)} />
+      <rect x="9" y="38" width="182" height="26" fill={Wp(0.07)} stroke={Wp(0.1)} strokeWidth="0.5" />
+      <circle cx="24" cy="51" r="6" fill={Wp(0.25)} />
+      <rect x="35" y="47" width="44" height="5" rx="2" fill={Wp(0.4)} />
+      <rect x="174" y="47" width="12" height="2" rx="1" fill={Wp(0.4)} />
+      <rect x="174" y="51" width="12" height="2" rx="1" fill={Wp(0.4)} />
+      <rect x="174" y="55" width="12" height="2" rx="1" fill={Wp(0.4)} />
+      <rect x="13" y="70" width="174" height="80" rx="6" fill={Wp(0.06)} stroke={Wp(0.2)} strokeWidth="0.8" />
+      <rect x="22" y="84" width="70" height="9" rx="3" fill={Wp(0.45)} />
+      <rect x="22" y="97" width="110" height="5" rx="2" fill={Wp(0.2)} />
+      <rect x="22" y="106" width="90" height="5" rx="2" fill={Wp(0.15)} />
+      <rect x="22" y="118" width="58" height="18" rx="5" fill={Wp(0.3)} stroke={Wp(0.45)} strokeWidth="0.8" />
+      <rect x="30" y="124" width="42" height="6" rx="2" fill={Wp(0.6)} />
+      <rect x="13" y="158" width="70" height="7" rx="3" fill={Wp(0.4)} />
+      <rect x="13" y="170" width="174" height="4" rx="2" fill={Wp(0.12)} />
+      <rect x="13" y="178" width="140" height="4" rx="2" fill={Wp(0.1)} />
+      <rect x="13" y="186" width="160" height="4" rx="2" fill={Wp(0.12)} />
+      <rect x="13" y="197" width="83" height="58" rx="6" fill={Wp(0.05)} stroke={Wp(0.18)} strokeWidth="0.8" />
+      <circle cx="33" cy="214" r="9" fill={Wp(0.2)} />
+      <rect x="20" y="228" width="50" height="5" rx="2" fill={Wp(0.35)} />
+      <rect x="20" y="237" width="65" height="4" rx="1.5" fill={Wp(0.15)} />
+      <rect x="104" y="197" width="83" height="58" rx="6" fill={Wp(0.05)} stroke={Wp(0.18)} strokeWidth="0.8" />
+      <circle cx="124" cy="214" r="9" fill={Wp(0.2)} />
+      <rect x="111" y="228" width="50" height="5" rx="2" fill={Wp(0.35)} />
+      <rect x="111" y="237" width="65" height="4" rx="1.5" fill={Wp(0.15)} />
+      <rect x="13" y="263" width="174" height="28" rx="6" fill={Wp(0.05)} stroke={Wp(0.15)} strokeWidth="0.8" />
+      <rect x="20" y="272" width="90" height="5" rx="2" fill={Wp(0.12)} />
+      <rect x="128" y="269" width="52" height="14" rx="4" fill={Wp(0.28)} />
+      <rect x="136" y="273" width="36" height="6" rx="2" fill={Wp(0.5)} />
+      <rect x="9" y="298" width="182" height="42" fill={Wp(0.04)} stroke={Wp(0.1)} strokeWidth="0.5" />
+      {([45, 100, 155] as number[]).map((cx, i) => (
+        <g key={i}>
+          <circle cx={cx} cy="313" r="6" fill={i === 0 ? Wp(0.5) : Wp(0.14)} />
+          <rect x={cx - 8} y="323" width="16" height="3.5" rx="1.5" fill={i === 0 ? Wp(0.5) : Wp(0.14)} />
+        </g>
+      ))}
+    </MPhoneShell>
+  );
+}
+
+function MAppStandard() {
+  return (
+    <MPhoneShell>
+      <text x="17" y="34" fontSize="8" fill={Wp(0.45)} fontFamily="monospace">9:41</text>
+      <rect x="170" y="25" width="16" height="7" rx="2" fill="none" stroke={Wp(0.35)} strokeWidth="0.8" />
+      <rect x="171" y="26" width="13" height="5" rx="1" fill={Wp(0.4)} />
+      <rect x="9" y="38" width="182" height="26" fill={Wp(0.07)} stroke={Wp(0.1)} strokeWidth="0.5" />
+      <rect x="17" y="47" width="65" height="7" rx="3" fill={Wp(0.35)} />
+      <circle cx="182" cy="51" r="8" fill={Wp(0.25)} stroke={Wp(0.4)} strokeWidth="0.8" />
+      <rect x="13" y="72" width="85" height="8" rx="3" fill={Wp(0.45)} />
+      <rect x="13" y="84" width="58" height="5" rx="2" fill={Wp(0.2)} />
+      <rect x="13" y="96" width="84" height="48" rx="7" fill={Wp(0.08)} stroke={Wp(0.25)} strokeWidth="0.8" />
+      <rect x="21" y="105" width="48" height="5" rx="2" fill={Wp(0.3)} />
+      <rect x="21" y="114" width="32" height="12" rx="3" fill={Wp(0.5)} />
+      <rect x="21" y="130" width="55" height="4" rx="2" fill={Wp(0.15)} />
+      <rect x="103" y="96" width="88" height="48" rx="7" fill={Wp(0.08)} stroke={Wp(0.25)} strokeWidth="0.8" />
+      <rect x="111" y="105" width="52" height="5" rx="2" fill={Wp(0.3)} />
+      <rect x="111" y="114" width="38" height="12" rx="3" fill={Wp(0.5)} />
+      <rect x="111" y="130" width="48" height="4" rx="2" fill={Wp(0.15)} />
+      <rect x="13" y="152" width="80" height="7" rx="3" fill={Wp(0.4)} />
+      {([168, 194, 220, 246] as number[]).map((y, i) => (
+        <g key={i}>
+          <circle cx="25" cy={y + 8} r="8" fill={Wp(0.2)} stroke={Wp(0.28)} strokeWidth="0.5" />
+          <rect x="40" y={y + 4} width={90 + (i % 2) * 20} height="6" rx="2" fill={Wp(0.3)} />
+          <rect x="40" y={y + 14} width={60 + (i % 3) * 15} height="4" rx="2" fill={Wp(0.15)} />
+          <rect x="176" y={y + 5} width="15" height="9" rx="2" fill={Wp(0.18)} />
+          {i < 3 && <line x1="13" y1={y + 26} x2="191" y2={y + 26} stroke={Wp(0.07)} strokeWidth="0.5" />}
+        </g>
+      ))}
+      <rect x="13" y="272" width="46" height="14" rx="7" fill={Wp(0.15)} stroke={Wp(0.3)} strokeWidth="0.5" />
+      <rect x="20" y="276" width="32" height="6" rx="2" fill={Wp(0.45)} />
+      <rect x="66" y="272" width="52" height="14" rx="7" fill={Wp(0.07)} stroke={Wp(0.18)} strokeWidth="0.5" />
+      <rect x="73" y="276" width="38" height="6" rx="2" fill={Wp(0.2)} />
+      <circle cx="177" cy="290" r="15" fill={Wp(0.3)} stroke={Wp(0.55)} strokeWidth="1" />
+      <rect x="173" y="289" width="8" height="2" rx="1" fill={Wp(0.9)} />
+      <rect x="176" y="286" width="2" height="8" rx="1" fill={Wp(0.9)} />
+      <rect x="9" y="314" width="182" height="44" fill={Wp(0.04)} stroke={Wp(0.1)} strokeWidth="0.5" />
+      {([35, 78, 122, 165] as number[]).map((cx, i) => (
+        <g key={i}>
+          <circle cx={cx} cy="329" r="6" fill={i === 0 ? Wp(0.5) : Wp(0.14)} />
+          <rect x={cx - 8} y="339" width="16" height="3.5" rx="1.5" fill={i === 0 ? Wp(0.5) : Wp(0.14)} />
+        </g>
+      ))}
+    </MPhoneShell>
+  );
+}
+
+function MAppPremium() {
+  return (
+    <MPhoneShell>
+      <text x="17" y="34" fontSize="8" fill={Wp(0.45)} fontFamily="monospace">9:41</text>
+      <rect x="170" y="25" width="16" height="7" rx="2" fill="none" stroke={Wp(0.35)} strokeWidth="0.8" />
+      <rect x="171" y="26" width="14" height="5" rx="1" fill={Wp(0.45)} />
+      <rect x="9" y="38" width="182" height="26" fill={Wp(0.07)} stroke={Wp(0.1)} strokeWidth="0.5" />
+      <rect x="17" y="47" width="75" height="7" rx="3" fill={Wp(0.35)} />
+      <circle cx="162" cy="51" r="4" fill="none" stroke={Wp(0.5)} strokeWidth="0.8" />
+      <circle cx="166" cy="48" r="3.5" fill="rgba(239,68,68,0.75)" />
+      <circle cx="182" cy="51" r="8" fill={Wp(0.25)} stroke={Wp(0.4)} strokeWidth="0.8" />
+      {([13, 77, 141] as number[]).map((x, i) => (
+        <g key={i}>
+          <rect x={x} y="72" width="57" height="38" rx="5" fill={Wp(0.08)} stroke={Wp(0.2)} strokeWidth="0.7" />
+          <rect x={x + 7} y="80" width="32" height="5" rx="2" fill={Wp(0.28)} />
+          <rect x={x + 7} y="89" width="28" height="10" rx="2" fill={Wp(0.5)} />
+          <rect x={x + 7} y="103" width="38" height="3" rx="1.5" fill={Wp(0.15)} />
+        </g>
+      ))}
+      <rect x="13" y="118" width="174" height="68" rx="5" fill={Wp(0.04)} stroke={Wp(0.14)} strokeWidth="0.7" />
+      <rect x="18" y="124" width="55" height="5" rx="2" fill={Wp(0.35)} />
+      {([22, 40, 58, 76, 94, 112, 130, 148, 166] as number[]).map((x, i) => {
+        const hs = [22, 36, 28, 44, 32, 18, 40, 26, 34];
+        return <rect key={i} x={x} y={182 - hs[i]} width="13" height={hs[i]} rx="2" fill={Wp(0.25 + (hs[i] / 44) * 0.3)} />;
+      })}
+      <line x1="18" y1="182" x2="183" y2="182" stroke={Wp(0.15)} strokeWidth="0.7" />
+      <rect x="13" y="194" width="174" height="54" rx="5" fill={Wp(0.04)} stroke={Wp(0.14)} strokeWidth="0.7" />
+      {([208, 224, 240] as number[]).map(y => <line key={y} x1="13" y1={y} x2="187" y2={y} stroke={Wp(0.06)} strokeWidth="0.5" />)}
+      {([50, 100, 150] as number[]).map(x => <line key={x} x1={x} y1="194" x2={x} y2="248" stroke={Wp(0.06)} strokeWidth="0.5" />)}
+      <circle cx="96" cy="220" r="9" fill={Wp(0.3)} stroke={Wp(0.6)} strokeWidth="1" />
+      <circle cx="96" cy="220" r="3.5" fill={Wp(0.85)} />
+      <rect x="13" y="256" width="174" height="26" rx="7" fill={Wp(0.2)} stroke={Wp(0.45)} strokeWidth="0.9" />
+      <rect x="52" y="264" width="96" height="10" rx="3" fill={Wp(0.6)} />
+      <rect x="9" y="290" width="182" height="42" fill={Wp(0.04)} stroke={Wp(0.1)} strokeWidth="0.5" />
+      {([25, 60, 100, 140, 175] as number[]).map((cx, i) => (
+        <g key={i}>
+          <circle cx={cx} cy="305" r="5.5" fill={i === 0 ? Wp(0.55) : Wp(0.14)} />
+          <rect x={cx - 7} y="314" width="14" height="3" rx="1.5" fill={i === 0 ? Wp(0.55) : Wp(0.14)} />
+        </g>
+      ))}
+    </MPhoneShell>
+  );
+}
+
+function MWebLanding() {
+  return (
+    <MBrowserShell>
+      <rect x="0" y="32" width="380" height="28" fill={Wp(0.06)} stroke={Wp(0.1)} strokeWidth="0.5" />
+      <circle cx="16" cy="46" r="6" fill={Wp(0.3)} />
+      <rect x="26" y="43" width="36" height="6" rx="2" fill={Wp(0.4)} />
+      {([140, 176, 212] as number[]).map((x, i) => (
+        <rect key={i} x={x} y="43" width={28 + i * 4} height="6" rx="2" fill={Wp(0.2)} />
+      ))}
+      <rect x="318" y="40" width="50" height="14" rx="4" fill={Wp(0.3)} stroke={Wp(0.45)} strokeWidth="0.7" />
+      <rect x="326" y="44" width="34" height="6" rx="2" fill={Wp(0.55)} />
+      <rect x="0" y="60" width="380" height="80" fill={Wp(0.04)} />
+      <rect x="30" y="74" width="140" height="12" rx="4" fill={Wp(0.5)} />
+      <rect x="30" y="90" width="200" height="7" rx="3" fill={Wp(0.22)} />
+      <rect x="30" y="101" width="170" height="7" rx="3" fill={Wp(0.18)} />
+      <rect x="30" y="116" width="64" height="18" rx="5" fill={Wp(0.35)} stroke={Wp(0.5)} strokeWidth="0.8" />
+      <rect x="38" y="121" width="48" height="8" rx="2" fill={Wp(0.6)} />
+      <rect x="102" y="116" width="64" height="18" rx="5" fill="none" stroke={Wp(0.3)} strokeWidth="0.8" />
+      <rect x="260" y="68" width="100" height="68" rx="6" fill={Wp(0.07)} stroke={Wp(0.18)} strokeWidth="0.8" />
+      <line x1="0" y1="145" x2="380" y2="145" stroke={Wp(0.08)} strokeWidth="0.7" />
+      {([20, 148, 276] as number[]).map((x) => (
+        <g key={x}>
+          <circle cx={x + 55} cy="164" r="12" fill={Wp(0.14)} stroke={Wp(0.25)} strokeWidth="0.8" />
+          <rect x={x + 24} y="182" width="62" height="6" rx="2" fill={Wp(0.38)} />
+          <rect x={x + 14} y="192" width="82" height="4" rx="2" fill={Wp(0.14)} />
+          <rect x={x + 18} y="200" width="74" height="4" rx="2" fill={Wp(0.12)} />
+          <rect x={x + 22} y="208" width="66" height="4" rx="2" fill={Wp(0.1)} />
+        </g>
+      ))}
+      <rect x="0" y="220" width="380" height="30" fill={Wp(0.06)} stroke={Wp(0.08)} strokeWidth="0.5" />
+      <rect x="16" y="228" width="50" height="5" rx="2" fill={Wp(0.3)} />
+      <rect x="220" y="228" width="35" height="5" rx="2" fill={Wp(0.18)} />
+      <rect x="264" y="228" width="35" height="5" rx="2" fill={Wp(0.18)} />
+      <rect x="308" y="228" width="55" height="5" rx="2" fill={Wp(0.18)} />
+    </MBrowserShell>
+  );
+}
+
+function MWebBusiness() {
+  return (
+    <MBrowserShell>
+      <rect x="0" y="32" width="380" height="26" fill={Wp(0.06)} stroke={Wp(0.1)} strokeWidth="0.5" />
+      <circle cx="16" cy="45" r="5.5" fill={Wp(0.3)} />
+      <rect x="26" y="42" width="36" height="6" rx="2" fill={Wp(0.4)} />
+      {([120, 152, 184, 216, 248] as number[]).map((x, i) => (
+        <rect key={i} x={x} y="42" width={24 + (i % 2) * 6} height="6" rx="2" fill={Wp(0.18)} />
+      ))}
+      <rect x="316" y="39" width="52" height="14" rx="4" fill={Wp(0.28)} stroke={Wp(0.4)} strokeWidth="0.7" />
+      <rect x="324" y="43" width="36" height="6" rx="2" fill={Wp(0.5)} />
+      <rect x="0" y="58" width="380" height="48" fill={Wp(0.04)} />
+      <rect x="20" y="68" width="120" height="9" rx="3" fill={Wp(0.5)} />
+      <rect x="20" y="81" width="160" height="5" rx="2" fill={Wp(0.2)} />
+      <rect x="20" y="89" width="140" height="5" rx="2" fill={Wp(0.15)} />
+      <line x1="0" y1="110" x2="380" y2="110" stroke={Wp(0.08)} strokeWidth="0.7" />
+      <rect x="15" y="118" width="155" height="48" rx="5" fill={Wp(0.06)} stroke={Wp(0.14)} strokeWidth="0.7" />
+      <rect x="185" y="118" width="180" height="9" rx="3" fill={Wp(0.4)} />
+      <rect x="185" y="131" width="160" height="4" rx="2" fill={Wp(0.15)} />
+      <rect x="185" y="139" width="170" height="4" rx="2" fill={Wp(0.13)} />
+      <rect x="185" y="147" width="150" height="4" rx="2" fill={Wp(0.12)} />
+      <rect x="185" y="155" width="140" height="4" rx="2" fill={Wp(0.1)} />
+      <line x1="0" y1="172" x2="380" y2="172" stroke={Wp(0.08)} strokeWidth="0.7" />
+      {([10, 135, 260] as number[]).map((x) => (
+        <g key={x}>
+          <rect x={x} y="180" width="110" height="32" rx="5" fill={Wp(0.05)} stroke={Wp(0.16)} strokeWidth="0.7" />
+          <circle cx={x + 16} cy="192" r="7" fill={Wp(0.18)} />
+          <rect x={x + 28} y="188" width="60" height="5" rx="2" fill={Wp(0.32)} />
+          <rect x={x + 28} y="197" width="74" height="4" rx="1.5" fill={Wp(0.14)} />
+        </g>
+      ))}
+      <line x1="0" y1="218" x2="380" y2="218" stroke={Wp(0.08)} strokeWidth="0.7" />
+      <rect x="50" y="228" width="130" height="8" rx="3" fill={Wp(0.06)} stroke={Wp(0.2)} strokeWidth="0.7" />
+      <rect x="200" y="228" width="130" height="8" rx="3" fill={Wp(0.06)} stroke={Wp(0.2)} strokeWidth="0.7" />
+      <rect x="50" y="240" width="280" height="5" rx="2" fill={Wp(0.06)} stroke={Wp(0.15)} strokeWidth="0.7" />
+    </MBrowserShell>
+  );
+}
+
+function MWebApp() {
+  return (
+    <MBrowserShell>
+      <rect x="0" y="32" width="72" height="218" fill={Wp(0.06)} stroke={Wp(0.12)} strokeWidth="0.5" />
+      <circle cx="14" cy="46" r="6" fill={Wp(0.3)} />
+      <rect x="24" y="43" width="36" height="6" rx="2" fill={Wp(0.4)} />
+      {(["Dashboard","Orders","Users","Analytics","Settings"] as string[]).map((_, i) => (
+        <g key={i}>
+          <rect x="6" y={62 + i * 26} width="60" height="20" rx="4" fill={i === 0 ? Wp(0.15) : "none"} stroke={i === 0 ? Wp(0.35) : "none"} strokeWidth="0.7" />
+          <circle cx="18" cy={72 + i * 26} r="5" fill={i === 0 ? Wp(0.5) : Wp(0.18)} />
+          <rect x="28" y={69 + i * 26} width={30 + (i % 3) * 6} height="6" rx="2" fill={i === 0 ? Wp(0.5) : Wp(0.18)} />
+        </g>
+      ))}
+      <rect x="72" y="32" width="308" height="26" fill={Wp(0.05)} stroke={Wp(0.1)} strokeWidth="0.5" />
+      <rect x="82" y="40" width="60" height="5" rx="2" fill={Wp(0.25)} />
+      <rect x="148" y="40" width="6" height="5" rx="1" fill={Wp(0.2)} />
+      <rect x="158" y="40" width="60" height="5" rx="2" fill={Wp(0.3)} />
+      <circle cx="354" cy="45" r="8" fill={Wp(0.25)} stroke={Wp(0.35)} strokeWidth="0.7" />
+      <circle cx="336" cy="45" r="7" fill={Wp(0.1)} stroke={Wp(0.25)} strokeWidth="0.7" />
+      {([78, 152, 226, 300] as number[]).map((x) => (
+        <g key={x}>
+          <rect x={x} y="64" width="64" height="36" rx="5" fill={Wp(0.07)} stroke={Wp(0.2)} strokeWidth="0.7" />
+          <rect x={x + 7} y="72" width="38" height="5" rx="2" fill={Wp(0.25)} />
+          <rect x={x + 7} y="81" width="28" height="11" rx="2" fill={Wp(0.5)} />
+        </g>
+      ))}
+      <rect x="78" y="106" width="288" height="16" rx="0" fill={Wp(0.07)} />
+      {([0,1,2,3,4] as number[]).map((i) => (
+        <rect key={i} x={84 + i * 56} y="112" width={40} height="5" rx="2" fill={Wp(0.35)} />
+      ))}
+      {([0,1,2,3] as number[]).map(row => (
+        <g key={row}>
+          <rect x="78" y={122 + row * 20} width="288" height="20" rx="0" fill={row % 2 === 0 ? Wp(0.03) : "none"} />
+          <rect x="84" y={127 + row * 20} width="20" height="5" rx="2" fill={Wp(0.2)} />
+          <rect x="140" y={127 + row * 20} width="48" height="5" rx="2" fill={Wp(0.28)} />
+          <rect x="218" y={125 + row * 20} width="38" height="9" rx="4" fill={row % 3 === 0 ? "rgba(74,222,128,0.15)" : Wp(0.08)} stroke={row % 3 === 0 ? "rgba(74,222,128,0.4)" : Wp(0.18)} strokeWidth="0.6" />
+          <rect x="280" y={127 + row * 20} width="36" height="5" rx="2" fill={Wp(0.2)} />
+          <rect x="328" y={125 + row * 20} width="30" height="9" rx="3" fill={Wp(0.15)} />
+        </g>
+      ))}
+      {([0,1,2,3,4] as number[]).map(i => (
+        <rect key={i} x={180 + i * 20} y="207" width="14" height="10" rx="3" fill={i === 1 ? Wp(0.35) : Wp(0.08)} stroke={i === 1 ? Wp(0.5) : Wp(0.14)} strokeWidth="0.6" />
+      ))}
+    </MBrowserShell>
+  );
+}
+
 export default function Home() {
   const [lang, setLang] = useState<Lang>("th");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -1699,127 +1993,62 @@ export default function Home() {
                 <span style={{ color: c.text }}>{t.pricing.titleSub}</span>
               </h2>
             </div>
-            {/* ── Flutter App Section ── */}
-            <div className="reveal mb-6">
-              <div className="flex items-center gap-4 p-5 rounded-2xl" style={{ background:isDark?"rgba(37,99,235,0.08)":"rgba(37,99,235,0.05)", border:`1px solid ${isDark?"rgba(37,99,235,0.25)":"rgba(37,99,235,0.15)"}` }}>
-                {/* Phone icon graphic */}
-                <div className="flex-shrink-0 relative" style={{ width:52,height:52 }}>
-                  <div style={{ width:52,height:52,borderRadius:14,background:"linear-gradient(135deg,#1d4ed8,#4f46e5)",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 4px 20px rgba(37,99,235,0.4)" }}>
-                    <Smartphone className="w-6 h-6 text-white" />
-                  </div>
-                  <div style={{ position:"absolute",bottom:-4,right:-4,width:20,height:20,borderRadius:"50%",background:"linear-gradient(135deg,#06b6d4,#3b82f6)",display:"flex",alignItems:"center",justifyContent:"center",border:"2px solid",borderColor:isDark?"#050d1a":"#f8faff" }}>
-                    <span style={{ color:"white",fontSize:9,fontWeight:900 }}>iOS</span>
-                  </div>
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <span className="font-black text-lg" style={{ color:c.text }}>Flutter App</span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background:"rgba(37,99,235,0.15)",color:"#60a5fa" }}>iOS · Android</span>
-                  </div>
-                  <p className="text-sm" style={{ color:c.textMuted }}>{lang==="th"?"รับทำ Flutter App ทั้ง iOS และ Android จาก codebase เดียว":"Cross-platform Flutter App for iOS & Android from a single codebase"}</p>
-                </div>
+            {/* ── Tab toggle ── */}
+            <div className="reveal flex justify-center mb-12">
+              <div style={{ display:"inline-flex", background:isDark?"rgba(255,255,255,0.04)":"rgba(0,0,0,0.04)", border:`1px solid ${isDark?"rgba(255,255,255,0.08)":"rgba(0,0,0,0.08)"}`, borderRadius:14, padding:4, gap:4 }}>
+                {(["app","web"] as const).map(tab => (
+                  <button key={tab} onClick={() => setPricingTab(tab)}
+                    style={{ display:"flex", alignItems:"center", gap:8, padding:"10px 24px", borderRadius:10, border:"none", fontSize:14, fontWeight:600, cursor:"pointer", transition:"all 0.2s",
+                      background: pricingTab === tab ? c.eyebrow : "transparent",
+                      color: pricingTab === tab ? "#fff" : c.textMuted,
+                      fontFamily:"var(--font-prompt), sans-serif",
+                    }}>
+                    {tab === "app" ? <Smartphone className="w-4 h-4" /> : <Globe className="w-4 h-4" />}
+                    {tab === "app" ? t.pricing.tabApp : t.pricing.tabWeb}
+                  </button>
+                ))}
               </div>
             </div>
-            <div className="grid md:grid-cols-3 gap-5 mb-16">
-              {t.pricing.plans.map((plan,i) => (
-                <div key={i}
-                  className={`tilt-card reveal reveal-d${i + 1} relative rounded-2xl p-8 flex flex-col`}
-                  style={plan.highlight
-                    ? { background:"linear-gradient(135deg,#1d4ed8,#1e3a8a)",border:"1px solid rgba(96,165,250,0.4)",boxShadow:"0 0 60px rgba(37,99,235,0.25)" }
-                    : { background: c.cardBg, border: `1px solid ${c.cardBorder}` }
-                  }
-                  onMouseMove={onTilt} onMouseLeave={e => { offTilt(e); }}
-                >
-                  {plan.highlight && (
-                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[11px] font-black px-4 py-1 rounded-full uppercase" style={{ background:"linear-gradient(90deg,#60a5fa,#a78bfa)",color:"white" }}>POPULAR</div>
-                  )}
-                  <div className="flex gap-1 mb-5">
-                    {[0,1,2].map(k => (
-                      <div key={k} style={{ flex:1,height:3,borderRadius:3,background:k<=i?(plan.highlight?"rgba(255,255,255,0.7)":"linear-gradient(90deg,#2563eb,#6d28d9)"):(isDark?"rgba(255,255,255,0.08)":"rgba(0,0,0,0.07)") }} />
-                    ))}
-                  </div>
-                  <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color:plan.highlight?"rgba(255,255,255,0.6)":c.textMuted }}>{plan.name}</p>
-                  <div className="text-4xl font-black mb-1" style={{ color:plan.highlight?"white":c.text }}>฿{plan.price}</div>
-                  <p className="text-sm mb-6" style={{ color:plan.highlight?"rgba(255,255,255,0.6)":c.textMuted }}>{plan.desc}</p>
-                  <ul className="space-y-3 mb-8 flex-1">
-                    {plan.features.map((f,j) => (
-                      <li key={j} className="flex items-start gap-2.5 text-sm" style={{ color:plan.highlight?"rgba(255,255,255,0.8)":c.textMuted }}>
-                        <CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color:plan.highlight?"#93c5fd":c.eyebrow }} />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    onClick={() => { setInquiryPlan(`Flutter App · ${plan.name} — ฿${plan.price}`); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
-                    className="block w-full text-center font-semibold py-3 rounded-full text-[14px] cursor-pointer"
-                    style={plan.highlight ? { background:"white",color:"#1d4ed8" } : { background:c.iconBg,color:c.eyebrow,border:`1px solid ${isDark?"rgba(59,130,246,0.3)":"rgba(37,99,235,0.25)"}` }}
-                  >{plan.cta}</button>
-                </div>
-              ))}
-            </div>
 
-            {/* Divider */}
-            <div className="reveal flex items-center gap-4 mb-10">
-              <div style={{ flex:1,height:1,background:isDark?"rgba(255,255,255,0.06)":"rgba(0,0,0,0.07)" }} />
-              <span className="text-xs font-bold tracking-widest uppercase px-4" style={{ color:c.textSubtle }}>หรือ</span>
-              <div style={{ flex:1,height:1,background:isDark?"rgba(255,255,255,0.06)":"rgba(0,0,0,0.07)" }} />
-            </div>
-
-            {/* ── Web Section ── */}
-            <div className="reveal mb-6">
-              <div className="flex items-center gap-4 p-5 rounded-2xl" style={{ background:isDark?"rgba(109,40,217,0.08)":"rgba(109,40,217,0.05)", border:`1px solid ${isDark?"rgba(109,40,217,0.25)":"rgba(109,40,217,0.15)"}` }}>
-                {/* Browser icon graphic */}
-                <div className="flex-shrink-0 relative" style={{ width:52,height:52 }}>
-                  <div style={{ width:52,height:52,borderRadius:14,background:"linear-gradient(135deg,#6d28d9,#7c3aed)",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 4px 20px rgba(109,40,217,0.4)" }}>
-                    <Globe className="w-6 h-6 text-white" />
+            {/* ── Mockup grid ── */}
+            <div className="grid md:grid-cols-3 gap-8 mb-10" style={{ alignItems:"start" }}>
+              {(pricingTab === "app"
+                ? t.pricing.plans.map((plan, i) => ({ ...plan, comp: [<MAppBasic key={0}/>, <MAppStandard key={1}/>, <MAppPremium key={2}/>][i], isApp: true }))
+                : t.pricing.webPlans.map((plan, i) => ({ ...plan, comp: [<MWebLanding key={0}/>, <MWebBusiness key={1}/>, <MWebApp key={2}/>][i], isApp: false }))
+              ).map((item, i) => (
+                <div key={i} className="reveal" style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:16 }}>
+                  <div style={{ width:"100%", padding: item.isApp ? "0 16px" : "0", position:"relative",
+                    filter: item.highlight ? "drop-shadow(0 0 28px rgba(96,165,250,0.28))" : "none",
+                  }}>
+                    {item.highlight && (
+                      <div style={{ position:"absolute", top:-12, left:"50%", transform:"translateX(-50%)",
+                        background:"linear-gradient(90deg,#60a5fa,#a78bfa)", color:"#fff", fontSize:10, fontWeight:800,
+                        letterSpacing:"0.1em", padding:"3px 14px", borderRadius:99, whiteSpace:"nowrap", zIndex:2,
+                      }}>POPULAR</div>
+                    )}
+                    <div style={{ border: item.highlight ? "1px solid rgba(96,165,250,0.35)" : `1px solid ${c.cardBorder}`,
+                      borderRadius: item.isApp ? 28 : 12, overflow:"hidden",
+                    }}>
+                      {item.comp}
+                    </div>
                   </div>
-                  <div style={{ position:"absolute",bottom:-4,right:-4,width:20,height:20,borderRadius:"50%",background:"linear-gradient(135deg,#a78bfa,#7c3aed)",display:"flex",alignItems:"center",justifyContent:"center",border:"2px solid",borderColor:isDark?"#050d1a":"#f8faff" }}>
-                    <span style={{ color:"white",fontSize:8,fontWeight:900 }}>SEO</span>
+                  <div style={{ textAlign:"center" }}>
+                    <div style={{ fontSize:15, fontWeight:800, color: item.highlight ? c.eyebrow : c.text, marginBottom:3 }}>
+                      {item.name}
+                    </div>
+                    <div style={{ fontSize:22, fontWeight:900, color: item.highlight ? c.eyebrow : c.text, letterSpacing:"-0.02em", marginBottom:4 }}>
+                      ฿{item.price}
+                    </div>
+                    <div style={{ fontSize:13, color:c.textMuted, marginBottom:14, lineHeight:1.5 }}>{item.desc}</div>
+                    <button
+                      onClick={() => { setInquiryPlan(`${item.isApp?"Flutter App":"Web"} · ${item.name} — ฿${item.price}`); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
+                      style={{ padding:"10px 28px", borderRadius:99, fontSize:13.5, fontWeight:700, cursor:"pointer",
+                        background: item.highlight ? c.eyebrow : "transparent",
+                        color: item.highlight ? "#fff" : c.eyebrow,
+                        border: item.highlight ? "none" : `1.5px solid ${isDark?"rgba(96,165,250,0.4)":"rgba(37,99,235,0.35)"}`,
+                        fontFamily:"var(--font-prompt), sans-serif",
+                      }}>{item.cta}</button>
                   </div>
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <span className="font-black text-lg" style={{ color:c.text }}>Web / Web App</span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background:"rgba(109,40,217,0.15)",color:"#a78bfa" }}>Next.js · React</span>
-                  </div>
-                  <p className="text-sm" style={{ color:c.textMuted }}>{lang==="th"?"รับทำเว็บไซต์ธุรกิจ Landing Page และ Web Application ครบวงจร":"Business websites, landing pages, and full-stack web applications"}</p>
-                </div>
-              </div>
-            </div>
-            <div className="grid md:grid-cols-3 gap-5">
-              {t.pricing.webPlans.map((plan,i) => (
-                <div key={i}
-                  className={`tilt-card reveal reveal-d${i + 1} relative rounded-2xl p-8 flex flex-col`}
-                  style={plan.highlight
-                    ? { background:"linear-gradient(135deg,#5b21b6,#4c1d95)",border:"1px solid rgba(167,139,250,0.4)",boxShadow:"0 0 60px rgba(109,40,217,0.25)" }
-                    : { background: c.cardBg, border: `1px solid ${c.cardBorder}` }
-                  }
-                  onMouseMove={onTilt} onMouseLeave={e => { offTilt(e); }}
-                >
-                  {plan.highlight && (
-                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[11px] font-black px-4 py-1 rounded-full uppercase" style={{ background:"linear-gradient(90deg,#a78bfa,#60a5fa)",color:"white" }}>POPULAR</div>
-                  )}
-                  <div className="flex gap-1 mb-5">
-                    {[0,1,2].map(k => (
-                      <div key={k} style={{ flex:1,height:3,borderRadius:3,background:k<=i?(plan.highlight?"rgba(255,255,255,0.7)":"linear-gradient(90deg,#6d28d9,#a78bfa)"):(isDark?"rgba(255,255,255,0.08)":"rgba(0,0,0,0.07)") }} />
-                    ))}
-                  </div>
-                  <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color:plan.highlight?"rgba(255,255,255,0.6)":c.textMuted }}>{plan.name}</p>
-                  <div className="text-4xl font-black mb-1" style={{ color:plan.highlight?"white":c.text }}>฿{plan.price}</div>
-                  <p className="text-sm mb-6" style={{ color:plan.highlight?"rgba(255,255,255,0.6)":c.textMuted }}>{plan.desc}</p>
-                  <ul className="space-y-3 mb-8 flex-1">
-                    {plan.features.map((f,j) => (
-                      <li key={j} className="flex items-start gap-2.5 text-sm" style={{ color:plan.highlight?"rgba(255,255,255,0.8)":c.textMuted }}>
-                        <CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color:plan.highlight?"#c4b5fd":isDark?"#a78bfa":"#7c3aed" }} />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    onClick={() => { setInquiryPlan(`Web · ${plan.name} — ฿${plan.price}`); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
-                    className="block w-full text-center font-semibold py-3 rounded-full text-[14px] cursor-pointer"
-                    style={plan.highlight ? { background:"white",color:"#5b21b6" } : { background:isDark?"rgba(109,40,217,0.12)":"rgba(109,40,217,0.08)",color:isDark?"#a78bfa":"#7c3aed",border:`1px solid ${isDark?"rgba(109,40,217,0.3)":"rgba(109,40,217,0.2)"}` }}
-                  >{plan.cta}</button>
                 </div>
               ))}
             </div>
