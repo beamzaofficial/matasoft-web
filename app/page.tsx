@@ -2362,7 +2362,7 @@ export default function Home() {
                           background:"transparent", color:c.textMuted,
                           border:`1px solid ${isDark?"rgba(255,255,255,0.12)":"rgba(0,0,0,0.1)"}`,
                           fontFamily:"var(--font-prompt), sans-serif",
-                        }}>ดูตัวอย่าง →</button>
+                        }}>{lang==="th"?"ดูตัวอย่าง →":"Preview →"}</button>
                     </div>
                   </div>
                 </div>
@@ -2424,7 +2424,7 @@ export default function Home() {
                           background:"transparent", color:c.textMuted,
                           border:`1px solid ${isDark?"rgba(255,255,255,0.12)":"rgba(0,0,0,0.1)"}`,
                           fontFamily:"var(--font-prompt), sans-serif",
-                        }}>ดูตัวอย่าง →</button>
+                        }}>{lang==="th"?"ดูตัวอย่าง →":"Preview →"}</button>
                     </div>
                   </div>
                 </div>
@@ -2878,24 +2878,27 @@ export default function Home() {
                   <span className="font-black text-sm" style={{ color:c.text }}>MATA SOFT</span>
                 </div>
                 <p className="text-xs leading-relaxed" style={{ color:c.noteCol, maxWidth:200 }}>
-                  รับทำ App & เว็บไซต์ระดับมืออาชีพ<br/>ส่งตรงเวลา มี Source Code ครบ
+                  {lang==="th" ? <>รับทำ App & เว็บไซต์ระดับมืออาชีพ<br/>ส่งตรงเวลา มี Source Code ครบ</> : <>Professional App & Web development.<br/>On time. Full source code included.</>}
                 </p>
               </div>
               {/* Services */}
               <div>
-                <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color:c.eyebrow }}>บริการ</p>
+                <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color:c.eyebrow }}>{lang==="th"?"บริการ":"Services"}</p>
                 <ul className="space-y-2">
-                  {["Flutter App iOS/Android","เว็บไซต์ธุรกิจ","Web Application","UI/UX Design"].map(s=>(
+                  {(lang==="th"
+                    ? ["Flutter App iOS/Android","เว็บไซต์ธุรกิจ","Web Application","UI/UX Design"]
+                    : ["Flutter App iOS/Android","Business Website","Web Application","UI/UX Design"]
+                  ).map(s=>(
                     <li key={s} className="text-xs" style={{ color:c.noteCol }}>{s}</li>
                   ))}
                 </ul>
               </div>
               {/* Contact */}
               <div>
-                <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color:c.eyebrow }}>ติดต่อ</p>
+                <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color:c.eyebrow }}>{lang==="th"?"ติดต่อ":"Contact"}</p>
                 <ul className="space-y-2">
-                  <li className="text-xs" style={{ color:c.noteCol }}>contact@matasoft.dev</li>
-                  <li className="text-xs" style={{ color:c.noteCol }}>0943218118 · มิติ</li>
+                  <li className="text-xs" style={{ color:c.noteCol }}>{t.contact.emailVal}</li>
+                  <li className="text-xs" style={{ color:c.noteCol }}>{t.contact.phoneVal} · {t.contact.phoneName}</li>
                   <li className="text-xs" style={{ color:c.noteCol }}>Line: @linebeamza</li>
                   <li className="text-xs leading-relaxed" style={{ color:c.noteCol }}>
                     {lang==="th" ? <>101/266 หมู่ 11 ต.บางบัวทอง<br/>อ.บางบัวทอง จ.นนทบุรี 11110</> : <>101/266 Moo 11, Bang Bua Thong<br/>Bang Bua Thong, Nonthaburi 11110</>}
