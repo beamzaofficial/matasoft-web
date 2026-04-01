@@ -2040,6 +2040,15 @@ export default function Home() {
                       ฿{item.price}
                     </div>
                     <div style={{ fontSize:13, color:c.textMuted, marginBottom:14, lineHeight:1.5 }}>{item.desc}</div>
+                    {/* Feature list */}
+                    <ul style={{ listStyle:"none", padding:0, margin:"0 0 18px", display:"flex", flexDirection:"column", gap:7, textAlign:"left" }}>
+                      {item.features.map((f: string, j: number) => (
+                        <li key={j} style={{ display:"flex", alignItems:"flex-start", gap:8, fontSize:13 }}>
+                          <CheckCircle style={{ width:14, height:14, marginTop:2, flexShrink:0, color: item.highlight ? c.eyebrow : "#4ade80" }} />
+                          <span style={{ color: c.textMuted }}>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
                     <button
                       onClick={() => { setInquiryPlan(`${item.isApp?"Flutter App":"Web"} · ${item.name} — ฿${item.price}`); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
                       style={{ padding:"10px 28px", borderRadius:99, fontSize:13.5, fontWeight:700, cursor:"pointer",
