@@ -26,6 +26,7 @@ const content = {
       services: "บริการ",
       process: "ขั้นตอน",
       pricing: "ราคา",
+      portfolio: "ผลงาน",
       contact: "ติดต่อ",
       cta: "เริ่มโปรเจกต์",
     },
@@ -158,6 +159,22 @@ const content = {
       tabApp: "Flutter App",
       tabWeb: "Web / Web App",
     },
+    portfolio: {
+      eyebrow: "ผลงาน",
+      title: "ตัวอย่าง",
+      titleSub: "งานที่เราทำ",
+      sub: "ผลงานจริงจากทีมเรา — ดูสดได้เลย",
+      items: [
+        {
+          title: "Brain Sudoku",
+          desc: "เกม Sudoku ออนไลน์เต็มรูปแบบ พร้อมระดับความยาก 4 ระดับ ระบบจับเวลา และ UI สวยงาม รองรับทุกอุปกรณ์",
+          tags: ["Web App", "Next.js", "Game"],
+          url: "https://brainsudoku.matasoft.dev/",
+          type: "Web Development",
+        },
+      ],
+      cta: "เปิดดูเว็บ",
+    },
     contact: {
       eyebrow: "ติดต่อ",
       title: "เริ่มต้น",
@@ -179,6 +196,7 @@ const content = {
       services: "Services",
       process: "Process",
       pricing: "Pricing",
+      portfolio: "Portfolio",
       contact: "Contact",
       cta: "Start Project",
     },
@@ -310,6 +328,22 @@ const content = {
       ],
       tabApp: "Flutter App",
       tabWeb: "Web / Web App",
+    },
+    portfolio: {
+      eyebrow: "Portfolio",
+      title: "Our",
+      titleSub: "Recent Works",
+      sub: "Real projects from our team — live and ready to explore.",
+      items: [
+        {
+          title: "Brain Sudoku",
+          desc: "A full-featured online Sudoku game with 4 difficulty levels, timer, and beautiful UI. Fully responsive.",
+          tags: ["Web App", "Next.js", "Game"],
+          url: "https://brainsudoku.matasoft.dev/",
+          type: "Web Development",
+        },
+      ],
+      cta: "Visit Live Site",
     },
     contact: {
       eyebrow: "Contact",
@@ -670,9 +704,9 @@ export default function Home() {
             </a>
 
             <div className="hidden md:flex items-center gap-8 text-[13px]" style={{ color: c.navText }}>
-              {(["#services","#process","#pricing","#contact"] as const).map((href, i) => (
+              {(["#services","#process","#pricing","#portfolio","#contact"] as const).map((href, i) => (
                 <a key={href} href={href} className="hover:opacity-100 transition-opacity" style={{ opacity: 0.75 }}>
-                  {[t.nav.services, t.nav.process, t.nav.pricing, t.nav.contact][i]}
+                  {[t.nav.services, t.nav.process, t.nav.pricing, t.nav.portfolio, t.nav.contact][i]}
                 </a>
               ))}
             </div>
@@ -747,7 +781,7 @@ export default function Home() {
             <div className="md:hidden px-6 py-6 flex flex-col gap-5 text-[15px]"
               style={{ background: c.navBg, backdropFilter: "blur(20px)", borderTop: `1px solid ${c.navBorder}` }}
             >
-              {([["#services",t.nav.services],["#process",t.nav.process],["#pricing",t.nav.pricing],["#contact",t.nav.contact]] as [string,string][]).map(([href,label]) => (
+              {([["#services",t.nav.services],["#process",t.nav.process],["#pricing",t.nav.pricing],["#portfolio",t.nav.portfolio],["#contact",t.nav.contact]] as [string,string][]).map(([href,label]) => (
                 <a key={href} href={href} onClick={() => setMenuOpen(false)} style={{ color: c.navText }}>{label}</a>
               ))}
               <div className="flex gap-3">
@@ -1678,6 +1712,111 @@ export default function Home() {
               ))}
             </div>
             <p className="text-center text-sm mt-8" style={{ color: c.noteCol }}>{t.pricing.note}</p>
+          </div>
+        </section>
+
+        {/* ── Portfolio ── */}
+        <section id="portfolio" className="py-28 px-6 overflow-hidden relative" style={{ background: c.pageBg }}>
+          {/* Ambient orbs */}
+          <div className="absolute pointer-events-none" style={{ width:500,height:500,top:"5%",right:"-5%",borderRadius:"50%",background:isDark?"radial-gradient(circle,rgba(124,58,237,0.1) 0%,transparent 65%)":"radial-gradient(circle,rgba(124,58,237,0.07) 0%,transparent 65%)" }} />
+          <div className="absolute pointer-events-none" style={{ width:400,height:400,bottom:"5%",left:"-5%",borderRadius:"50%",background:isDark?"radial-gradient(circle,rgba(59,130,246,0.09) 0%,transparent 65%)":"radial-gradient(circle,rgba(37,99,235,0.06) 0%,transparent 65%)" }} />
+
+          <div className="max-w-5xl mx-auto relative">
+            {/* Heading */}
+            <div className="mb-14 reveal">
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.22em] uppercase px-3.5 py-1.5 rounded-full mb-5"
+                style={{ background:isDark?"rgba(59,130,246,0.15)":"rgba(37,99,235,0.08)", color:c.eyebrow, border:`1px solid ${isDark?"rgba(59,130,246,0.3)":"rgba(37,99,235,0.18)"}`, display:"inline-flex" }}
+              >
+                <span style={{ width:5,height:5,borderRadius:"50%",background:c.eyebrow,display:"inline-block" }} />
+                {t.portfolio.eyebrow}
+              </span>
+              <h2 className="text-4xl md:text-[56px] font-black leading-[1.1] tracking-tight">
+                <span style={{ backgroundImage:`linear-gradient(135deg,${isDark?"#60a5fa":"#1d4ed8"},${isDark?"#a78bfa":"#6d28d9"})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text" }}>
+                  {t.portfolio.title}
+                </span>
+                <br />
+                <span style={{ color: c.text }}>{t.portfolio.titleSub}</span>
+              </h2>
+              <p className="mt-4 text-base" style={{ color: c.textMuted }}>{t.portfolio.sub}</p>
+            </div>
+
+            {/* Cards grid */}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {t.portfolio.items.map((item, idx) => (
+                <div
+                  key={idx}
+                  className={`reveal reveal-d${idx + 1} tilt-card rounded-2xl overflow-hidden flex flex-col`}
+                  style={{ background: c.cardBg, border:`1px solid ${c.cardBorder}`, transition:"border-color 0.2s ease,box-shadow 0.2s ease" }}
+                  onMouseMove={onTilt}
+                  onMouseLeave={offTilt}
+                >
+                  {/* Browser chrome mockup */}
+                  <div className="relative" style={{ background:isDark?"rgba(255,255,255,0.04)":"rgba(0,0,0,0.04)", borderBottom:`1px solid ${c.cardBorder}` }}>
+                    {/* Dots */}
+                    <div className="flex items-center gap-1.5 px-4 py-3">
+                      {["#ff5f57","#febc2e","#28c840"].map(col=>(
+                        <span key={col} style={{ width:10,height:10,borderRadius:"50%",background:col,display:"inline-block",opacity:0.7 }} />
+                      ))}
+                      {/* URL bar */}
+                      <div className="flex-1 mx-3 px-3 py-1 rounded-md text-[11px] truncate"
+                        style={{ background:isDark?"rgba(255,255,255,0.06)":"rgba(0,0,0,0.06)", color:c.textMuted }}>
+                        {item.url.replace("https://","")}
+                      </div>
+                    </div>
+                    {/* Preview area */}
+                    <div className="flex items-center justify-center" style={{ height:140, background:isDark?"linear-gradient(135deg,rgba(37,99,235,0.12),rgba(109,40,217,0.12))":"linear-gradient(135deg,rgba(37,99,235,0.07),rgba(109,40,217,0.07))" }}>
+                      <span className="text-4xl font-black tracking-tight" style={{ backgroundImage:`linear-gradient(135deg,${isDark?"#60a5fa":"#2563eb"},${isDark?"#a78bfa":"#7c3aed"})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text" }}>
+                        {item.title}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card body */}
+                  <div className="flex flex-col flex-1 p-5 gap-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="font-bold text-[17px]" style={{ color: c.text }}>{item.title}</h3>
+                      <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full shrink-0"
+                        style={{ background:isDark?"rgba(59,130,246,0.15)":"rgba(37,99,235,0.1)", color:c.eyebrow, border:`1px solid ${isDark?"rgba(59,130,246,0.25)":"rgba(37,99,235,0.2)"}` }}>
+                        {item.type}
+                      </span>
+                    </div>
+                    <p className="text-[13px] leading-relaxed flex-1" style={{ color: c.textMuted }}>{item.desc}</p>
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-1.5">
+                      {item.tags.map(tag=>(
+                        <span key={tag} className="text-[11px] px-2.5 py-1 rounded-full"
+                          style={{ background:c.tagBg, border:`1px solid ${c.tagBorder}`, color:c.tagText }}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    {/* CTA */}
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 flex items-center justify-center gap-2 text-[13px] font-semibold py-2.5 rounded-xl"
+                      style={{ background:`linear-gradient(135deg,${isDark?"rgba(37,99,235,0.2)":"rgba(37,99,235,0.1)"},${isDark?"rgba(109,40,217,0.2)":"rgba(109,40,217,0.1)"})`, color:c.eyebrow, border:`1px solid ${isDark?"rgba(59,130,246,0.25)":"rgba(37,99,235,0.2)"}`, transition:"background 0.2s ease,border-color 0.2s ease" }}
+                      onMouseEnter={e=>{ (e.currentTarget as HTMLAnchorElement).style.background=`linear-gradient(135deg,rgba(37,99,235,0.35),rgba(109,40,217,0.35))`; }}
+                      onMouseLeave={e=>{ (e.currentTarget as HTMLAnchorElement).style.background=`linear-gradient(135deg,${isDark?"rgba(37,99,235,0.2)":"rgba(37,99,235,0.1)"},${isDark?"rgba(109,40,217,0.2)":"rgba(109,40,217,0.1)"})` }}
+                    >
+                      <Globe className="w-3.5 h-3.5" />
+                      {t.portfolio.cta}
+                    </a>
+                  </div>
+                </div>
+              ))}
+
+              {/* "Coming soon" placeholder card */}
+              <div className="reveal reveal-d2 rounded-2xl flex flex-col items-center justify-center gap-3 p-8 text-center"
+                style={{ background:c.cardBg, border:`1.5px dashed ${c.cardBorder}`, minHeight:300 }}>
+                <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ background:isDark?"rgba(255,255,255,0.04)":"rgba(0,0,0,0.04)", border:`1px solid ${c.cardBorder}` }}>
+                  <span className="text-2xl font-black" style={{ color:c.textSubtle }}>+</span>
+                </div>
+                <p className="text-sm font-semibold" style={{ color:c.textMuted }}>{lang==="th"?"ผลงานเพิ่มเติม กำลังมา…":"More projects coming soon…"}</p>
+                <p className="text-xs" style={{ color:c.textSubtle }}>{lang==="th"?"ติดต่อเพื่อดูงานเพิ่มเติม":"Contact us to see more work"}</p>
+              </div>
+            </div>
           </div>
         </section>
 
