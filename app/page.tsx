@@ -745,6 +745,138 @@ function MWebApp({ dark }: { dark: boolean }) {
   );
 }
 
+// ─── Hero Wireframe Drawing Animation ────────────────────────────────────────
+function HeroWireframe({ dark }: { dark: boolean }) {
+  const s = (o: number) => dark ? `rgba(96,165,250,${o})` : `rgba(37,99,235,${o})`;
+  const bg = dark ? "#070f1e" : "#f0f5ff";
+  const scr = dark ? "rgba(4,10,25,0.92)" : "rgba(214,225,255,0.55)";
+
+  const drw = (t: number, d = 0.65): React.CSSProperties => ({
+    animation: `heroDraw ${d}s cubic-bezier(0.4,0,0.2,1) ${t}s both`,
+  });
+  const fi = (t: number, d = 0.4): React.CSSProperties => ({
+    opacity: 0,
+    animation: `heroFadeIn ${d}s ease-out ${t}s forwards`,
+  });
+
+  return (
+    <svg viewBox="0 0 300 590" width="260" height="511" xmlns="http://www.w3.org/2000/svg"
+      style={{ filter: dark ? "drop-shadow(0 0 40px rgba(96,165,250,0.18))" : "drop-shadow(0 0 30px rgba(37,99,235,0.14))" }}>
+
+      {/* Corner marks — appear first to "frame" the drawing */}
+      {([[10,10,1,1],[290,10,-1,1],[290,580,-1,-1],[10,580,1,-1]] as [number,number,number,number][]).map(([x,y,dx,dy],i) => (
+        <g key={i}>
+          <line x1={x} y1={y} x2={x+dx*18} y2={y} stroke={s(0.6)} strokeWidth="1.2" style={fi(0.0+i*0.04, 0.25)} />
+          <line x1={x} y1={y} x2={x} y2={y+dy*18} stroke={s(0.6)} strokeWidth="1.2" style={fi(0.0+i*0.04, 0.25)} />
+        </g>
+      ))}
+
+      {/* Phone body fill */}
+      <rect x="10" y="10" width="280" height="570" rx="30" fill={bg} style={fi(0.1, 1.4)} />
+
+      {/* Phone body outline — draws in */}
+      <rect x="10" y="10" width="280" height="570" rx="30"
+        fill="none" stroke={s(0.88)} strokeWidth="1.5"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+        style={drw(0.1, 1.6)} />
+
+      {/* Dynamic island */}
+      <rect x="103" y="10" width="94" height="26" rx="13"
+        fill={bg} stroke={s(0.6)} strokeWidth="1"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1"
+        style={drw(0.9, 0.4)} />
+
+      {/* Screen area */}
+      <rect x="10" y="52" width="280" height="490" fill={scr} style={fi(1.3, 0.8)} />
+
+      {/* ── Status bar ── */}
+      <text x="28" y="80" fontSize="9" fill={s(0.5)} fontFamily="monospace" style={fi(1.45, 0.3)}>9:41</text>
+      <rect x="220" y="70" width="22" height="10" rx="2" fill="none" stroke={s(0.4)} strokeWidth="0.8"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(1.45, 0.3)} />
+      <rect x="222" y="72" width="16" height="6" rx="1" fill={s(0.35)} style={fi(1.7, 0.2)} />
+      <line x1="10" y1="94" x2="290" y2="94" stroke={s(0.1)} strokeWidth="0.5" style={fi(1.5)} />
+
+      {/* ── App nav bar ── */}
+      <rect x="28" y="101" width="30" height="22" rx="4" fill="none" stroke={s(0.55)} strokeWidth="0.8"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(1.6, 0.3)} />
+      <rect x="33" y="107" width="20" height="10" rx="2" fill={s(0.22)} style={fi(1.85, 0.2)} />
+      {[0,5,10].map((dy, i) => (
+        <line key={i} x1={240} y1={105+dy} x2={265} y2={105+dy}
+          stroke={s(0.5)} strokeWidth="1.2" strokeLinecap="round" style={fi(1.65+i*0.05)} />
+      ))}
+      <line x1="10" y1="130" x2="290" y2="130" stroke={s(0.09)} strokeWidth="0.5" style={fi(1.8)} />
+
+      {/* ── Hero/banner area ── */}
+      <rect x="20" y="138" width="260" height="112" rx="8" fill="none" stroke={s(0.5)} strokeWidth="0.9"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(1.9, 0.75)} />
+      {/* Text lines left */}
+      <rect x="32" y="150" width="120" height="10" rx="2.5" fill={s(0.22)} style={fi(2.55, 0.3)} />
+      <rect x="32" y="164" width="88" height="7" rx="2"  fill={s(0.12)} style={fi(2.62, 0.25)} />
+      <rect x="32" y="174" width="105" height="7" rx="2" fill={s(0.12)} style={fi(2.68, 0.25)} />
+      {/* CTA inside hero */}
+      <rect x="32" y="190" width="72" height="24" rx="12" fill="none" stroke={s(0.65)} strokeWidth="0.9"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(2.55, 0.4)} />
+      <rect x="36" y="194" width="64" height="16" rx="8" fill={s(0.18)} style={fi(2.9, 0.2)} />
+      {/* Image placeholder right */}
+      <rect x="178" y="144" width="88" height="98" rx="6" fill="none" stroke={s(0.3)} strokeWidth="0.7"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(2.2, 0.5)} />
+      <line x1="178" y1="144" x2="266" y2="242" stroke={s(0.13)} strokeWidth="0.5" style={fi(2.65)} />
+      <line x1="266" y1="144" x2="178" y2="242" stroke={s(0.13)} strokeWidth="0.5" style={fi(2.65)} />
+
+      {/* ── Cards row ── */}
+      {[0,1,2].map(i => (
+        <g key={i}>
+          <rect x={20+i*90} y="264" width="78" height="68" rx="8" fill="none" stroke={s(0.45)} strokeWidth="0.8"
+            pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(2.75+i*0.13, 0.45)} />
+          <circle cx={20+i*90+16} cy={280} r="8" fill="none" stroke={s(0.4)} strokeWidth="0.75"
+            pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(2.9+i*0.13, 0.28)} />
+          <rect x={20+i*90+8} y={293} width={60} height={6}  rx="2" fill={s(0.2)}  style={fi(3.05+i*0.1, 0.2)} />
+          <rect x={20+i*90+8} y={302} width={45} height={5}  rx="2" fill={s(0.12)} style={fi(3.12+i*0.1, 0.2)} />
+          <rect x={20+i*90+8} y={312} width={55} height={4.5} rx="2" fill={s(0.1)} style={fi(3.18+i*0.1, 0.2)} />
+        </g>
+      ))}
+
+      {/* ── Section heading + text lines ── */}
+      <rect x="28" y="347" width="95" height="9" rx="2.5" fill={s(0.3)} style={fi(3.25, 0.25)} />
+      {[358, 370, 382, 394].map((y, i) => (
+        <rect key={i} x="28" y={y} width={i%2===0 ? 234 : 175} height="5.5" rx="2"
+          fill={s(0.12)} style={fi(3.35+i*0.06, 0.2)} />
+      ))}
+
+      {/* ── CTA button ── */}
+      <rect x="50" y="413" width="200" height="42" rx="21" fill="none" stroke={s(0.72)} strokeWidth="1.3"
+        pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(3.6, 0.55)} />
+      <rect x="54" y="417" width="192" height="34" rx="17" fill={s(0.15)} style={fi(4.1, 0.3)} />
+      <rect x="100" y="427" width="100" height="14" rx="3.5" fill={s(0.25)} style={fi(4.15, 0.25)} />
+
+      {/* ── Blinking cursor dot (pen tip) ── */}
+      <circle cx="250" cy="455" r="3.5" fill={s(0.9)}
+        style={{ animation: "heroPenBlink 1.1s ease-in-out 4.1s infinite" }} />
+      <circle cx="250" cy="455" r="7" fill="none" stroke={s(0.35)} strokeWidth="0.8"
+        style={{ animation: "heroPenBlink 1.1s ease-in-out 4.1s infinite", opacity:0 }} />
+
+      {/* ── Bottom nav ── */}
+      <line x1="10" y1="504" x2="290" y2="504" stroke={s(0.14)} strokeWidth="0.6" style={fi(3.9)} />
+      {[0,1,2,3].map(i => (
+        <g key={i}>
+          <circle cx={47+i*66} cy={524} r="10" fill="none" stroke={s(0.42)} strokeWidth="0.8"
+            pathLength="1" strokeDasharray="1" strokeDashoffset="1" style={drw(3.9+i*0.09, 0.3)} />
+          <rect x={31+i*66} y={538} width="32" height="5" rx="2" fill={s(0.14)} style={fi(4.05+i*0.06, 0.2)} />
+        </g>
+      ))}
+
+      {/* ── Annotation lines ── */}
+      <line x1="2" y1="52" x2="2" y2="543" stroke={s(0.22)} strokeWidth="0.5" strokeDasharray="3 2" style={fi(4.2, 0.5)} />
+      <line x1="2" y1="52"  x2="10" y2="52"  stroke={s(0.22)} strokeWidth="0.5" style={fi(4.2, 0.5)} />
+      <line x1="2" y1="543" x2="10" y2="543" stroke={s(0.22)} strokeWidth="0.5" style={fi(4.2, 0.5)} />
+      <text x="298" y="310" fontSize="7.5" fill={s(0.35)} fontFamily="monospace"
+        textAnchor="end" style={fi(4.3, 0.4)}>SCREEN</text>
+      <text x="20" y="586" fontSize="7.5" fill={s(0.35)} fontFamily="monospace" letterSpacing="0.12em"
+        style={fi(4.4, 0.5)}>MATA SOFT · APP v1.0</text>
+    </svg>
+  );
+}
+
 export default function Home() {
   const [lang, setLang] = useState<Lang>("th");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -942,6 +1074,18 @@ export default function Home() {
         @keyframes backdropIn {
           from { opacity:0; }
           to   { opacity:1; }
+        }
+        @keyframes heroDraw {
+          from { stroke-dashoffset: 1; }
+          to   { stroke-dashoffset: 0; }
+        }
+        @keyframes heroFadeIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes heroPenBlink {
+          0%,100% { opacity: 1; transform: scale(1); }
+          50%     { opacity: 0.2; transform: scale(0.6); }
         }
         @keyframes checkPop {
           0%   { transform:scale(0) rotate(-10deg); }
@@ -1290,47 +1434,59 @@ export default function Home() {
 
           </div>
 
-          <div className="relative z-10 max-w-5xl mx-auto">
-            <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full text-[12px] font-semibold tracking-[0.15em] uppercase"
-              style={{ background: isDark?"rgba(59,130,246,0.15)":"rgba(37,99,235,0.1)", border:`1px solid ${isDark?"rgba(59,130,246,0.35)":"rgba(37,99,235,0.25)"}`, color: isDark?"#93c5fd":"#2563eb" }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: isDark?"#60a5fa":"#2563eb" }} />
-              {t.hero.eyebrow}
-            </div>
+          <div className="relative z-10 w-full max-w-6xl mx-auto px-4">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
 
-            <h1 className="text-4xl md:text-6xl lg:text-[72px] font-black leading-[1.2] tracking-[-0.01em] mb-8" style={{ color: isDark?"white":c.text }}>
-              <span className="block">{t.hero.line1}</span>
-              <span className="block" style={{ backgroundImage:"linear-gradient(90deg,#60a5fa 0%,#a78bfa 45%,#38bdf8 100%)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text",backgroundSize:"200% 100%",animation:"shimmer 4s linear infinite" }}>
-                {t.hero.line2}
-              </span>
-              <span className="block" style={{ color: isDark?"white":c.text }}>{t.hero.line3}</span>
-            </h1>
+              {/* ── Text content ── */}
+              <div className="flex-1 text-center lg:text-left">
+                <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full text-[12px] font-semibold tracking-[0.15em] uppercase"
+                  style={{ background: isDark?"rgba(59,130,246,0.15)":"rgba(37,99,235,0.1)", border:`1px solid ${isDark?"rgba(59,130,246,0.35)":"rgba(37,99,235,0.25)"}`, color: isDark?"#93c5fd":"#2563eb" }}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: isDark?"#60a5fa":"#2563eb" }} />
+                  {t.hero.eyebrow}
+                </div>
 
-            <p className="text-lg md:text-xl max-w-lg mx-auto leading-relaxed mb-12" style={{ color: isDark?"rgba(255,255,255,0.5)":"rgba(15,23,42,0.55)" }}>
-              {t.hero.sub}
-            </p>
+                <h1 className="text-4xl md:text-5xl lg:text-[62px] font-black leading-[1.15] tracking-[-0.01em] mb-8" style={{ color: isDark?"white":c.text }}>
+                  <span className="block">{t.hero.line1}</span>
+                  <span className="block" style={{ backgroundImage:"linear-gradient(90deg,#60a5fa 0%,#a78bfa 45%,#38bdf8 100%)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text",backgroundSize:"200% 100%",animation:"shimmer 4s linear infinite" }}>
+                    {t.hero.line2}
+                  </span>
+                  <span className="block" style={{ color: isDark?"white":c.text }}>{t.hero.line3}</span>
+                </h1>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a href="#contact"
-                className="mag-btn font-semibold px-8 py-4 rounded-full text-[15px] min-w-[180px] text-center"
-                style={{ background:"linear-gradient(135deg,#2563eb,#7c3aed)",color:"white",boxShadow:"0 0 40px rgba(59,130,246,0.4)" }}
-                onMouseMove={e => {
-                  const el = e.currentTarget; const r = el.getBoundingClientRect();
-                  el.style.transform = `translate(${(e.clientX-r.left-r.width/2)*0.3}px,${(e.clientY-r.top-r.height/2)*0.3}px) scale(1.05)`;
-                  el.style.boxShadow = "0 0 60px rgba(59,130,246,0.6)";
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.transform = "translate(0,0) scale(1)";
-                  e.currentTarget.style.boxShadow = "0 0 40px rgba(59,130,246,0.4)";
-                }}
-              >
-                {t.hero.cta}
-              </a>
-              <a href="#services" className="text-[15px] font-medium flex items-center gap-1.5 transition-opacity hover:opacity-100"
-                style={{ color: isDark?"rgba(255,255,255,0.6)":"rgba(15,23,42,0.5)", opacity:0.8 }}
-              >
-                {t.hero.ctaSecondary} <span className="text-lg">↓</span>
-              </a>
+                <p className="text-lg md:text-xl max-w-lg leading-relaxed mb-12 mx-auto lg:mx-0" style={{ color: isDark?"rgba(255,255,255,0.5)":"rgba(15,23,42,0.55)" }}>
+                  {t.hero.sub}
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4">
+                  <a href="#contact"
+                    className="mag-btn font-semibold px-8 py-4 rounded-full text-[15px] min-w-[180px] text-center"
+                    style={{ background:"linear-gradient(135deg,#2563eb,#7c3aed)",color:"white",boxShadow:"0 0 40px rgba(59,130,246,0.4)" }}
+                    onMouseMove={e => {
+                      const el = e.currentTarget; const r = el.getBoundingClientRect();
+                      el.style.transform = `translate(${(e.clientX-r.left-r.width/2)*0.3}px,${(e.clientY-r.top-r.height/2)*0.3}px) scale(1.05)`;
+                      el.style.boxShadow = "0 0 60px rgba(59,130,246,0.6)";
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = "translate(0,0) scale(1)";
+                      e.currentTarget.style.boxShadow = "0 0 40px rgba(59,130,246,0.4)";
+                    }}
+                  >
+                    {t.hero.cta}
+                  </a>
+                  <a href="#services" className="text-[15px] font-medium flex items-center gap-1.5 transition-opacity hover:opacity-100"
+                    style={{ color: isDark?"rgba(255,255,255,0.6)":"rgba(15,23,42,0.5)", opacity:0.8 }}
+                  >
+                    {t.hero.ctaSecondary} <span className="text-lg">↓</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* ── Wireframe drawing animation ── */}
+              <div className="hidden lg:flex flex-shrink-0 items-center justify-center">
+                <HeroWireframe dark={isDark} />
+              </div>
+
             </div>
           </div>
 
