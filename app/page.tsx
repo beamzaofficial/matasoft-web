@@ -450,6 +450,7 @@ export default function Home() {
   const [inquiryText, setInquiryText] = useState("");
   const [inquiryContact, setInquiryContact] = useState("");
   const [inquiryDone, setInquiryDone] = useState(false);
+  const [inquiryLoading, setInquiryLoading] = useState(false);
   const t = content[lang];
   const c = isDark ? dk : lt;
 
@@ -2244,19 +2245,31 @@ export default function Home() {
                       {lang==="th" ? "ยกเลิก" : "Cancel"}
                     </button>
                     <button
-                      onClick={() => {
-                        if(!inquiryText.trim()) return;
-                        const msg = `สวัสดีครับ สนใจแพ็กเกจ ${inquiryPlan}\n\nรายละเอียด:\n${inquiryText}${inquiryContact ? `\n\nติดต่อกลับ: ${inquiryContact}` : ""}`;
-                        navigator.clipboard?.writeText(msg).catch(()=>{});
-                        window.open("https://line.me/ti/p/linebeamza","_blank");
+                      onClick={async () => {
+                        if(!inquiryText.trim() || inquiryLoading) return;
+                        setInquiryLoading(true);
+                        try {
+                          await fetch("https://formspree.io/f/mlgolnzq", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json", Accept: "application/json" },
+                            body: JSON.stringify({
+                              plan: inquiryPlan,
+                              message: inquiryText,
+                              contact: inquiryContact || "-",
+                            }),
+                          });
+                        } catch(_) { /* fail silently */ }
+                        setInquiryLoading(false);
                         setInquiryDone(true);
                       }}
-                      disabled={!inquiryText.trim()}
+                      disabled={!inquiryText.trim() || inquiryLoading}
                       className="flex-[2] py-3 rounded-2xl text-sm font-bold flex items-center justify-center gap-2"
-                      style={{ background: inquiryText.trim() ? "linear-gradient(135deg,#2563eb,#7c3aed)" : "rgba(255,255,255,0.08)", color: inquiryText.trim() ? "white" : "rgba(255,255,255,0.25)", transition:"all 0.2s ease", cursor: inquiryText.trim() ? "pointer" : "not-allowed" }}
+                      style={{ background: inquiryText.trim() ? "linear-gradient(135deg,#2563eb,#7c3aed)" : "rgba(255,255,255,0.08)", color: inquiryText.trim() ? "white" : "rgba(255,255,255,0.25)", transition:"all 0.2s ease", cursor: inquiryText.trim() && !inquiryLoading ? "pointer" : "not-allowed", opacity: inquiryLoading ? 0.7 : 1 }}
                     >
-                      <MessageCircle className="w-4 h-4" />
-                      {lang==="th" ? "ส่งหาเราเลย" : "Send to Us"}
+                      {inquiryLoading
+                        ? <><span style={{ width:16,height:16,borderRadius:"50%",border:"2px solid rgba(255,255,255,0.3)",borderTopColor:"white",display:"inline-block",animation:"svgSpin 0.7s linear infinite" }} />{lang==="th"?"กำลังส่ง…":"Sending…"}</>
+                        : <><MessageCircle className="w-4 h-4" />{lang==="th" ? "ส่งหาเราเลย" : "Send to Us"}</>
+                      }
                     </button>
                   </div>
                 </>
@@ -2267,14 +2280,21 @@ export default function Home() {
                     <CheckCircle className="w-8 h-8" style={{ color:"#60a5fa" }} />
                   </div>
                   <div>
-                    <h3 className="text-xl font-black text-white mb-1">{lang==="th" ? "รับแล้ว! 🎉" : "Got it! 🎉"}</h3>
+                    <h3 className="text-xl font-black text-white mb-1">{lang==="th" ? "ส่งแล้ว! 🎉" : "Sent! 🎉"}</h3>
                     <p className="text-sm" style={{ color:"rgba(255,255,255,0.45)" }}>
-                      {lang==="th" ? "เปิด LINE แล้ว แปะข้อความที่คัดลอกไว้ได้เลยครับ\nเราจะรีบติดต่อกลับภายใน 24 ชม." : "LINE opened — paste your copied message.\nWe'll reply within 24 hrs."}
+                      {lang==="th" ? "ได้รับข้อมูลของคุณแล้ว\nเราจะรีบติดต่อกลับภายใน 24 ชม. ครับ" : "We've received your message.\nWe'll get back to you within 24 hrs."}
                     </p>
                   </div>
-                  <div className="w-full p-4 rounded-2xl text-left text-xs" style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.07)", color:"rgba(255,255,255,0.35)" }}>
-                    <p className="font-bold mb-1 text-[10px] tracking-widest uppercase" style={{ color:"rgba(99,102,241,0.7)" }}>LINE ID</p>
-                    <p className="font-mono text-sm" style={{ color:"#93c5fd" }}>linebeamza</p>
+                  <div className="w-full p-4 rounded-2xl text-left" style={{ background:"rgba(255,255,255,0.04)", border:"1px solid rgba(255,255,255,0.07)" }}>
+                    <p className="font-bold mb-2 text-[10px] tracking-widest uppercase" style={{ color:"rgba(99,102,241,0.7)" }}>{lang==="th"?"ติดต่อด่วนผ่าน":"Reach us faster via"}</p>
+                    <div className="flex gap-3">
+                      <a href="https://line.me/ti/p/linebeamza" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full" style={{ background:"rgba(37,211,102,0.15)",color:"#4ade80",border:"1px solid rgba(37,211,102,0.25)" }}>
+                        LINE: linebeamza
+                      </a>
+                      <a href="tel:0943218118" className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full" style={{ background:"rgba(59,130,246,0.15)",color:"#93c5fd",border:"1px solid rgba(59,130,246,0.25)" }}>
+                        094-321-8118
+                      </a>
+                    </div>
                   </div>
                   <button
                     onClick={() => setInquiryOpen(false)}
