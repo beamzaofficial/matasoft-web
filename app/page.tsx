@@ -171,9 +171,17 @@ const content = {
           tags: ["Web App", "Next.js", "Game"],
           url: "https://brainsudoku.matasoft.dev/",
           type: "Web Development",
+          cta: "เปิดดูเว็บ",
+        },
+        {
+          title: "Brain Sudoku",
+          desc: "Flutter App เกม Sudoku บน iOS พร้อมระดับความยาก สถิติ และ UI สวยงาม ดาวน์โหลดได้บน App Store",
+          tags: ["Flutter App", "iOS", "Game"],
+          url: "https://apps.apple.com/th/app/brain-sudoku-mind-trainer/id6761324273",
+          type: "Flutter App",
+          cta: "ดูบน App Store",
         },
       ],
-      cta: "เปิดดูเว็บ",
     },
     contact: {
       eyebrow: "ติดต่อ",
@@ -341,9 +349,17 @@ const content = {
           tags: ["Web App", "Next.js", "Game"],
           url: "https://brainsudoku.matasoft.dev/",
           type: "Web Development",
+          cta: "Visit Live Site",
+        },
+        {
+          title: "Brain Sudoku",
+          desc: "Flutter iOS app — Sudoku game with difficulty levels, stats tracking, and polished UI. Available on the App Store.",
+          tags: ["Flutter App", "iOS", "Game"],
+          url: "https://apps.apple.com/th/app/brain-sudoku-mind-trainer/id6761324273",
+          type: "Flutter App",
+          cta: "View on App Store",
         },
       ],
-      cta: "Visit Live Site",
     },
     contact: {
       eyebrow: "Contact",
@@ -1801,7 +1817,7 @@ export default function Home() {
                       onMouseLeave={e=>{ (e.currentTarget as HTMLAnchorElement).style.background=`linear-gradient(135deg,${isDark?"rgba(37,99,235,0.2)":"rgba(37,99,235,0.1)"},${isDark?"rgba(109,40,217,0.2)":"rgba(109,40,217,0.1)"})` }}
                     >
                       <Globe className="w-3.5 h-3.5" />
-                      {t.portfolio.cta}
+                      {item.cta}
                     </a>
                   </div>
                 </div>
