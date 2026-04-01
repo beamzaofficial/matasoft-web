@@ -19,6 +19,7 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
+import DemoModal, { type DemoSlug } from "./components/DemoModal";
 
 const content = {
   th: {
@@ -1001,6 +1002,7 @@ export default function Home() {
   const [inquiryContact, setInquiryContact] = useState("");
   const [inquiryDone, setInquiryDone] = useState(false);
   const [inquiryLoading, setInquiryLoading] = useState(false);
+  const [demoSlug, setDemoSlug] = useState<DemoSlug | null>(null);
   const t = content[lang];
   const c = isDark ? dk : lt;
 
@@ -2316,14 +2318,23 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
-                    <button
-                      onClick={() => { setInquiryPlan(`${item.isApp?"Flutter App":"Web"} · ${item.name} — ฿${item.price}`); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
-                      style={{ padding:"10px 28px", borderRadius:99, fontSize:13.5, fontWeight:700, cursor:"pointer",
-                        background: item.highlight ? c.eyebrow : "transparent",
-                        color: item.highlight ? "#fff" : c.eyebrow,
-                        border: item.highlight ? "none" : `1.5px solid ${isDark?"rgba(96,165,250,0.4)":"rgba(37,99,235,0.35)"}`,
-                        fontFamily:"var(--font-prompt), sans-serif",
-                      }}>{item.cta}</button>
+                    <div style={{ display:"flex", flexDirection:"column", gap:8, alignItems:"center" }}>
+                      <button
+                        onClick={() => { setInquiryPlan(`${item.isApp?"Flutter App":"Web"} · ${item.name} — ฿${item.price}`); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
+                        style={{ padding:"10px 28px", borderRadius:99, fontSize:13.5, fontWeight:700, cursor:"pointer", width:"100%",
+                          background: item.highlight ? c.eyebrow : "transparent",
+                          color: item.highlight ? "#fff" : c.eyebrow,
+                          border: item.highlight ? "none" : `1.5px solid ${isDark?"rgba(96,165,250,0.4)":"rgba(37,99,235,0.35)"}`,
+                          fontFamily:"var(--font-prompt), sans-serif",
+                        }}>{item.cta}</button>
+                      <button
+                        onClick={() => setDemoSlug((["app-basic","app-standard","app-premium"] as DemoSlug[])[i])}
+                        style={{ padding:"8px 20px", borderRadius:99, fontSize:12.5, fontWeight:600, cursor:"pointer", width:"100%",
+                          background:"transparent", color:c.textMuted,
+                          border:`1px solid ${isDark?"rgba(255,255,255,0.12)":"rgba(0,0,0,0.1)"}`,
+                          fontFamily:"var(--font-prompt), sans-serif",
+                        }}>ดูตัวอย่าง →</button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -2369,14 +2380,23 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
-                    <button
-                      onClick={() => { setInquiryPlan(`Web · ${item.name} — ฿${item.price}`); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
-                      style={{ padding:"10px 28px", borderRadius:99, fontSize:13.5, fontWeight:700, cursor:"pointer",
-                        background: item.highlight ? c.eyebrow : "transparent",
-                        color: item.highlight ? "#fff" : c.eyebrow,
-                        border: item.highlight ? "none" : `1.5px solid ${isDark?"rgba(96,165,250,0.4)":"rgba(37,99,235,0.35)"}`,
-                        fontFamily:"var(--font-prompt), sans-serif",
-                      }}>{item.cta}</button>
+                    <div style={{ display:"flex", flexDirection:"column", gap:8, alignItems:"center" }}>
+                      <button
+                        onClick={() => { setInquiryPlan(`Web · ${item.name} — ฿${item.price}`); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
+                        style={{ padding:"10px 28px", borderRadius:99, fontSize:13.5, fontWeight:700, cursor:"pointer", width:"100%",
+                          background: item.highlight ? c.eyebrow : "transparent",
+                          color: item.highlight ? "#fff" : c.eyebrow,
+                          border: item.highlight ? "none" : `1.5px solid ${isDark?"rgba(96,165,250,0.4)":"rgba(37,99,235,0.35)"}`,
+                          fontFamily:"var(--font-prompt), sans-serif",
+                        }}>{item.cta}</button>
+                      <button
+                        onClick={() => setDemoSlug((["web-landing","web-business","web-app"] as DemoSlug[])[i])}
+                        style={{ padding:"8px 20px", borderRadius:99, fontSize:12.5, fontWeight:600, cursor:"pointer", width:"100%",
+                          background:"transparent", color:c.textMuted,
+                          border:`1px solid ${isDark?"rgba(255,255,255,0.12)":"rgba(0,0,0,0.1)"}`,
+                          fontFamily:"var(--font-prompt), sans-serif",
+                        }}>ดูตัวอย่าง →</button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -2798,6 +2818,15 @@ export default function Home() {
           </div>
         </footer>
       </div>
+
+      {/* ── Demo Modal ── */}
+      {demoSlug && (
+        <DemoModal
+          slug={demoSlug}
+          onClose={() => setDemoSlug(null)}
+          onInquiry={() => { setDemoSlug(null); setInquiryPlan(demoSlug); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
+        />
+      )}
 
       {/* ── Inquiry Dialog ── */}
       {inquiryOpen && (
