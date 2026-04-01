@@ -1697,57 +1697,126 @@ export default function Home() {
                 <span style={{ color: c.text }}>{t.pricing.titleSub}</span>
               </h2>
             </div>
-            {/* Tab toggle */}
-            <div className="flex gap-2 mb-10 p-1 rounded-2xl w-fit" style={{ background:isDark?"rgba(255,255,255,0.06)":"rgba(0,0,0,0.05)", border:`1px solid ${isDark?"rgba(255,255,255,0.08)":"rgba(0,0,0,0.07)"}` }}>
-              {([["app",t.pricing.tabApp],["web",t.pricing.tabWeb]] as ["app"|"web",string][]).map(([tab,label])=>(
-                <button key={tab} onClick={()=>setPricingTab(tab)}
-                  className="px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-200"
-                  style={pricingTab===tab
-                    ? { background:"linear-gradient(135deg,#2563eb,#6d28d9)", color:"white", boxShadow:"0 2px 12px rgba(37,99,235,0.35)" }
-                    : { background:"transparent", color:c.textMuted }
-                  }
-                >{label}</button>
-              ))}
+            {/* ── Flutter App Section ── */}
+            <div className="reveal mb-6">
+              <div className="flex items-center gap-4 p-5 rounded-2xl" style={{ background:isDark?"rgba(37,99,235,0.08)":"rgba(37,99,235,0.05)", border:`1px solid ${isDark?"rgba(37,99,235,0.25)":"rgba(37,99,235,0.15)"}` }}>
+                {/* Phone icon graphic */}
+                <div className="flex-shrink-0 relative" style={{ width:52,height:52 }}>
+                  <div style={{ width:52,height:52,borderRadius:14,background:"linear-gradient(135deg,#1d4ed8,#4f46e5)",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 4px 20px rgba(37,99,235,0.4)" }}>
+                    <Smartphone className="w-6 h-6 text-white" />
+                  </div>
+                  <div style={{ position:"absolute",bottom:-4,right:-4,width:20,height:20,borderRadius:"50%",background:"linear-gradient(135deg,#06b6d4,#3b82f6)",display:"flex",alignItems:"center",justifyContent:"center",border:"2px solid",borderColor:isDark?"#050d1a":"#f8faff" }}>
+                    <span style={{ color:"white",fontSize:9,fontWeight:900 }}>iOS</span>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className="font-black text-lg" style={{ color:c.text }}>Flutter App</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background:"rgba(37,99,235,0.15)",color:"#60a5fa" }}>iOS · Android</span>
+                  </div>
+                  <p className="text-sm" style={{ color:c.textMuted }}>{lang==="th"?"รับทำ Flutter App ทั้ง iOS และ Android จาก codebase เดียว":"Cross-platform Flutter App for iOS & Android from a single codebase"}</p>
+                </div>
+              </div>
             </div>
-
-            <div className="grid md:grid-cols-3 gap-5">
-              {(pricingTab==="app" ? t.pricing.plans : t.pricing.webPlans).map((plan,i) => (
+            <div className="grid md:grid-cols-3 gap-5 mb-16">
+              {t.pricing.plans.map((plan,i) => (
                 <div key={i}
                   className={`tilt-card reveal reveal-d${i + 1} relative rounded-2xl p-8 flex flex-col`}
                   style={plan.highlight
                     ? { background:"linear-gradient(135deg,#1d4ed8,#1e3a8a)",border:"1px solid rgba(96,165,250,0.4)",boxShadow:"0 0 60px rgba(37,99,235,0.25)" }
                     : { background: c.cardBg, border: `1px solid ${c.cardBorder}` }
                   }
-                  onMouseMove={onTilt}
-                  onMouseLeave={e => { offTilt(e); }}
+                  onMouseMove={onTilt} onMouseLeave={e => { offTilt(e); }}
                 >
                   {plan.highlight && (
                     <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[11px] font-black px-4 py-1 rounded-full uppercase" style={{ background:"linear-gradient(90deg,#60a5fa,#a78bfa)",color:"white" }}>POPULAR</div>
                   )}
-                  {/* Tier visual indicator */}
                   <div className="flex gap-1 mb-5">
                     {[0,1,2].map(k => (
-                      <div key={k} style={{ flex:1, height:3, borderRadius:3, background: k <= i ? (plan.highlight?"rgba(255,255,255,0.7)":"linear-gradient(90deg,#2563eb,#6d28d9)") : (isDark?"rgba(255,255,255,0.08)":"rgba(0,0,0,0.07)") }} />
+                      <div key={k} style={{ flex:1,height:3,borderRadius:3,background:k<=i?(plan.highlight?"rgba(255,255,255,0.7)":"linear-gradient(90deg,#2563eb,#6d28d9)"):(isDark?"rgba(255,255,255,0.08)":"rgba(0,0,0,0.07)") }} />
                     ))}
                   </div>
-                  <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: plan.highlight?"rgba(255,255,255,0.6)":c.textMuted }}>{plan.name}</p>
-                  <div className="text-4xl font-black mb-1" style={{ color: plan.highlight?"white":c.text }}>฿{plan.price}</div>
-                  <p className="text-sm mb-6" style={{ color: plan.highlight?"rgba(255,255,255,0.6)":c.textMuted }}>{plan.desc}</p>
+                  <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color:plan.highlight?"rgba(255,255,255,0.6)":c.textMuted }}>{plan.name}</p>
+                  <div className="text-4xl font-black mb-1" style={{ color:plan.highlight?"white":c.text }}>฿{plan.price}</div>
+                  <p className="text-sm mb-6" style={{ color:plan.highlight?"rgba(255,255,255,0.6)":c.textMuted }}>{plan.desc}</p>
                   <ul className="space-y-3 mb-8 flex-1">
                     {plan.features.map((f,j) => (
-                      <li key={j} className="flex items-start gap-2.5 text-sm" style={{ color: plan.highlight?"rgba(255,255,255,0.8)":c.textMuted }}>
-                        <CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: plan.highlight?"#93c5fd":c.eyebrow }} />
+                      <li key={j} className="flex items-start gap-2.5 text-sm" style={{ color:plan.highlight?"rgba(255,255,255,0.8)":c.textMuted }}>
+                        <CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color:plan.highlight?"#93c5fd":c.eyebrow }} />
                         {f}
                       </li>
                     ))}
                   </ul>
                   <button
-                    onClick={() => { setInquiryPlan(`${plan.name} — ฿${plan.price}`); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
+                    onClick={() => { setInquiryPlan(`Flutter App · ${plan.name} — ฿${plan.price}`); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
                     className="block w-full text-center font-semibold py-3 rounded-full text-[14px] cursor-pointer"
-                    style={plan.highlight
-                      ? { background:"white",color:"#1d4ed8" }
-                      : { background: c.iconBg, color: c.eyebrow, border:`1px solid ${isDark?"rgba(59,130,246,0.3)":"rgba(37,99,235,0.25)"}` }
-                    }
+                    style={plan.highlight ? { background:"white",color:"#1d4ed8" } : { background:c.iconBg,color:c.eyebrow,border:`1px solid ${isDark?"rgba(59,130,246,0.3)":"rgba(37,99,235,0.25)"}` }}
+                  >{plan.cta}</button>
+                </div>
+              ))}
+            </div>
+
+            {/* Divider */}
+            <div className="reveal flex items-center gap-4 mb-10">
+              <div style={{ flex:1,height:1,background:isDark?"rgba(255,255,255,0.06)":"rgba(0,0,0,0.07)" }} />
+              <span className="text-xs font-bold tracking-widest uppercase px-4" style={{ color:c.textSubtle }}>หรือ</span>
+              <div style={{ flex:1,height:1,background:isDark?"rgba(255,255,255,0.06)":"rgba(0,0,0,0.07)" }} />
+            </div>
+
+            {/* ── Web Section ── */}
+            <div className="reveal mb-6">
+              <div className="flex items-center gap-4 p-5 rounded-2xl" style={{ background:isDark?"rgba(109,40,217,0.08)":"rgba(109,40,217,0.05)", border:`1px solid ${isDark?"rgba(109,40,217,0.25)":"rgba(109,40,217,0.15)"}` }}>
+                {/* Browser icon graphic */}
+                <div className="flex-shrink-0 relative" style={{ width:52,height:52 }}>
+                  <div style={{ width:52,height:52,borderRadius:14,background:"linear-gradient(135deg,#6d28d9,#7c3aed)",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 4px 20px rgba(109,40,217,0.4)" }}>
+                    <Globe className="w-6 h-6 text-white" />
+                  </div>
+                  <div style={{ position:"absolute",bottom:-4,right:-4,width:20,height:20,borderRadius:"50%",background:"linear-gradient(135deg,#a78bfa,#7c3aed)",display:"flex",alignItems:"center",justifyContent:"center",border:"2px solid",borderColor:isDark?"#050d1a":"#f8faff" }}>
+                    <span style={{ color:"white",fontSize:8,fontWeight:900 }}>SEO</span>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className="font-black text-lg" style={{ color:c.text }}>Web / Web App</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background:"rgba(109,40,217,0.15)",color:"#a78bfa" }}>Next.js · React</span>
+                  </div>
+                  <p className="text-sm" style={{ color:c.textMuted }}>{lang==="th"?"รับทำเว็บไซต์ธุรกิจ Landing Page และ Web Application ครบวงจร":"Business websites, landing pages, and full-stack web applications"}</p>
+                </div>
+              </div>
+            </div>
+            <div className="grid md:grid-cols-3 gap-5">
+              {t.pricing.webPlans.map((plan,i) => (
+                <div key={i}
+                  className={`tilt-card reveal reveal-d${i + 1} relative rounded-2xl p-8 flex flex-col`}
+                  style={plan.highlight
+                    ? { background:"linear-gradient(135deg,#5b21b6,#4c1d95)",border:"1px solid rgba(167,139,250,0.4)",boxShadow:"0 0 60px rgba(109,40,217,0.25)" }
+                    : { background: c.cardBg, border: `1px solid ${c.cardBorder}` }
+                  }
+                  onMouseMove={onTilt} onMouseLeave={e => { offTilt(e); }}
+                >
+                  {plan.highlight && (
+                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[11px] font-black px-4 py-1 rounded-full uppercase" style={{ background:"linear-gradient(90deg,#a78bfa,#60a5fa)",color:"white" }}>POPULAR</div>
+                  )}
+                  <div className="flex gap-1 mb-5">
+                    {[0,1,2].map(k => (
+                      <div key={k} style={{ flex:1,height:3,borderRadius:3,background:k<=i?(plan.highlight?"rgba(255,255,255,0.7)":"linear-gradient(90deg,#6d28d9,#a78bfa)"):(isDark?"rgba(255,255,255,0.08)":"rgba(0,0,0,0.07)") }} />
+                    ))}
+                  </div>
+                  <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color:plan.highlight?"rgba(255,255,255,0.6)":c.textMuted }}>{plan.name}</p>
+                  <div className="text-4xl font-black mb-1" style={{ color:plan.highlight?"white":c.text }}>฿{plan.price}</div>
+                  <p className="text-sm mb-6" style={{ color:plan.highlight?"rgba(255,255,255,0.6)":c.textMuted }}>{plan.desc}</p>
+                  <ul className="space-y-3 mb-8 flex-1">
+                    {plan.features.map((f,j) => (
+                      <li key={j} className="flex items-start gap-2.5 text-sm" style={{ color:plan.highlight?"rgba(255,255,255,0.8)":c.textMuted }}>
+                        <CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color:plan.highlight?"#c4b5fd":isDark?"#a78bfa":"#7c3aed" }} />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={() => { setInquiryPlan(`Web · ${plan.name} — ฿${plan.price}`); setInquiryText(""); setInquiryContact(""); setInquiryDone(false); setInquiryOpen(true); }}
+                    className="block w-full text-center font-semibold py-3 rounded-full text-[14px] cursor-pointer"
+                    style={plan.highlight ? { background:"white",color:"#5b21b6" } : { background:isDark?"rgba(109,40,217,0.12)":"rgba(109,40,217,0.08)",color:isDark?"#a78bfa":"#7c3aed",border:`1px solid ${isDark?"rgba(109,40,217,0.3)":"rgba(109,40,217,0.2)"}` }}
                   >{plan.cta}</button>
                 </div>
               ))}
