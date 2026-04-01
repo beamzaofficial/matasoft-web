@@ -161,6 +161,19 @@ const content = {
       tabApp: "Flutter App",
       tabWeb: "Web / Web App",
     },
+    faq: {
+      eyebrow: "FAQ",
+      title: "คำถาม",
+      titleSub: "ที่พบบ่อย",
+      items: [
+        { q: "รับทำแอป Flutter ราคาเท่าไหร่?", a: "ราคาเริ่มต้น ฿15,000 สำหรับ App ง่ายๆ ไม่ซับซ้อน และ ฿35,000 สำหรับ App พร้อม Backend เชื่อมต่อ API ราคาจริงคำนวณตาม scope งาน ติดต่อเพื่อรับใบเสนอราคาฟรี" },
+        { q: "รับทำเว็บไซต์ราคาเริ่มต้นเท่าไหร่?", a: "รับทำเว็บไซต์ราคาเริ่มต้น ฿8,000 สำหรับ Landing Page และ ฿20,000 สำหรับเว็บไซต์ธุรกิจแบบ Multi-page พร้อม SEO" },
+        { q: "ส่งงานตรงเวลาไหม?", a: "วาง timeline ชัดก่อนเริ่ม อัปเดตทุกสัปดาห์ ไม่มีประวัติล่าช้า พร้อม Source Code เต็ม และดูแลหลังส่งงาน 30 วัน" },
+        { q: "ใช้เวลานานแค่ไหน?", a: "Landing Page ใช้เวลา 1–2 สัปดาห์, App Basic 3–4 สัปดาห์, App Standard ขึ้นไป 4–8 สัปดาห์ ขึ้นอยู่กับ scope งาน" },
+        { q: "ได้รับ Source Code หลังส่งงานไหม?", a: "ได้รับ Source Code เต็มทุกโปรเจกต์ ไม่ว่าจะเป็น Flutter App หรือเว็บไซต์ คุณเป็นเจ้าของโค้ดทั้งหมด นำไปต่อยอดหรือแก้ไขเองได้ในอนาคต" },
+        { q: "ต้องรู้เรื่อง IT ไหมถึงจะจ้างได้?", a: "ไม่จำเป็น เราอธิบายทุกอย่างให้เข้าใจง่าย ตั้งแต่ออกแบบ วางแผน ไปจนถึง Deploy ดูแลทุกขั้นตอนให้ครบ" },
+      ],
+    },
     portfolio: {
       eyebrow: "ผลงาน",
       title: "ตัวอย่าง",
@@ -339,6 +352,19 @@ const content = {
       ],
       tabApp: "Flutter App",
       tabWeb: "Web / Web App",
+    },
+    faq: {
+      eyebrow: "FAQ",
+      title: "Frequently",
+      titleSub: "Asked Questions",
+      items: [
+        { q: "How much does a Flutter app cost?", a: "Starting from ฿15,000 for simple apps and ฿35,000 for apps with backend & API. Final price is based on project scope — contact us for a free quote." },
+        { q: "How much does a website cost?", a: "Starting from ฿8,000 for a Landing Page and ฿20,000 for a full multi-page business website with SEO." },
+        { q: "Do you deliver on time?", a: "Always. We set a clear timeline before starting, give weekly updates, and have no history of late delivery. Source code is included and we provide 30 days of post-delivery support." },
+        { q: "How long does it take?", a: "A landing page takes 1–2 weeks, a Basic App 3–4 weeks, and Standard apps 4–8 weeks depending on scope." },
+        { q: "Do I get the source code?", a: "Yes, full source code is included with every project. You own the code entirely and can extend or modify it in the future." },
+        { q: "Do I need technical knowledge to hire you?", a: "Not at all. We explain everything in plain language, from design and planning to deployment. We handle the whole process end-to-end." },
+      ],
     },
     portfolio: {
       eyebrow: "Portfolio",
@@ -1003,6 +1029,7 @@ export default function Home() {
   const [inquiryDone, setInquiryDone] = useState(false);
   const [inquiryLoading, setInquiryLoading] = useState(false);
   const [demoSlug, setDemoSlug] = useState<DemoSlug | null>(null);
+  const [faqOpen, setFaqOpen] = useState<number | null>(null);
   const t = content[lang];
   const c = isDark ? dk : lt;
 
@@ -2540,6 +2567,72 @@ export default function Home() {
                 <p className="text-sm font-semibold" style={{ color:c.textMuted }}>{lang==="th"?"ผลงานเพิ่มเติม กำลังมา…":"More projects coming soon…"}</p>
                 <p className="text-xs" style={{ color:c.textSubtle }}>{lang==="th"?"ติดต่อเพื่อดูงานเพิ่มเติม":"Contact us to see more work"}</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── FAQ ── */}
+        <section id="faq" className="py-24 px-6 overflow-hidden" style={{ background: c.sectionAlt }}>
+          <div className="max-w-3xl mx-auto">
+            {/* Heading */}
+            <div className="mb-12 reveal text-center">
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.22em] uppercase px-3.5 py-1.5 rounded-full mb-5"
+                style={{ background: isDark?"rgba(59,130,246,0.15)":"rgba(37,99,235,0.08)", color: c.eyebrow, border:`1px solid ${isDark?"rgba(59,130,246,0.3)":"rgba(37,99,235,0.18)"}`, display:"inline-flex" }}
+              >
+                <span style={{ width:5,height:5,borderRadius:"50%",background:c.eyebrow,display:"inline-block" }} />
+                {t.faq.eyebrow}
+              </span>
+              <h2 className="text-4xl md:text-[52px] font-black leading-[1.1] tracking-tight">
+                <span style={{ backgroundImage:`linear-gradient(135deg,${isDark?"#60a5fa":"#1d4ed8"},${isDark?"#a78bfa":"#6d28d9"})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text" }}>
+                  {t.faq.title}
+                </span>
+                {" "}
+                <span style={{ color: c.text }}>{t.faq.titleSub}</span>
+              </h2>
+            </div>
+
+            {/* Accordion */}
+            <div className="flex flex-col gap-3">
+              {t.faq.items.map((item, i) => {
+                const open = faqOpen === i;
+                return (
+                  <div
+                    key={i}
+                    className="reveal rounded-2xl overflow-hidden"
+                    style={{ border:`1px solid ${open ? (isDark?"rgba(59,130,246,0.4)":"rgba(37,99,235,0.3)") : c.cardBorder}`, background: open ? (isDark?"rgba(59,130,246,0.07)":"rgba(37,99,235,0.04)") : c.cardBg, transition:"border-color 0.2s,background 0.2s" }}
+                  >
+                    <button
+                      className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
+                      onClick={() => setFaqOpen(open ? null : i)}
+                    >
+                      <span className="font-semibold text-[15px]" style={{ color: c.text }}>{item.q}</span>
+                      <span
+                        className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center"
+                        style={{ background: isDark?"rgba(59,130,246,0.15)":"rgba(37,99,235,0.1)", color: c.eyebrow, transform: open?"rotate(45deg)":"rotate(0deg)", transition:"transform 0.25s ease" }}
+                      >
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                          <line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                          <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                        </svg>
+                      </span>
+                    </button>
+                    <div style={{ maxHeight: open ? 300 : 0, overflow:"hidden", transition:"max-height 0.3s ease" }}>
+                      <p className="px-6 pb-5 text-[14px] leading-relaxed" style={{ color: c.textMuted }}>{item.a}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Still have questions CTA */}
+            <div className="mt-10 text-center reveal">
+              <p className="text-sm mb-4" style={{ color: c.textMuted }}>{lang==="th"?"ยังมีคำถามอื่น? ปรึกษาฟรี ไม่มีข้อผูกมัด":"Still have questions? Free consultation, no commitment."}</p>
+              <a href="#contact"
+                className="inline-flex items-center gap-2 text-[14px] font-semibold px-6 py-3 rounded-full"
+                style={{ background:`linear-gradient(135deg,${isDark?"rgba(37,99,235,0.25)":"rgba(37,99,235,0.12)"},${isDark?"rgba(109,40,217,0.25)":"rgba(109,40,217,0.12)"})`, color: c.eyebrow, border:`1px solid ${isDark?"rgba(59,130,246,0.3)":"rgba(37,99,235,0.2)"}` }}
+              >
+                {lang==="th"?"ติดต่อเราเลย →":"Contact Us →"}
+              </a>
             </div>
           </div>
         </section>
