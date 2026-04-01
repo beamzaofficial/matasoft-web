@@ -172,6 +172,7 @@ const content = {
         { q: "ใช้เวลานานแค่ไหน?", a: "Landing Page ใช้เวลา 1–2 สัปดาห์, App Basic 3–4 สัปดาห์, App Standard ขึ้นไป 4–8 สัปดาห์ ขึ้นอยู่กับ scope งาน" },
         { q: "ได้รับ Source Code หลังส่งงานไหม?", a: "ได้รับ Source Code เต็มทุกโปรเจกต์ ไม่ว่าจะเป็น Flutter App หรือเว็บไซต์ คุณเป็นเจ้าของโค้ดทั้งหมด นำไปต่อยอดหรือแก้ไขเองได้ในอนาคต" },
         { q: "ต้องรู้เรื่อง IT ไหมถึงจะจ้างได้?", a: "ไม่จำเป็น เราอธิบายทุกอย่างให้เข้าใจง่าย ตั้งแต่ออกแบบ วางแผน ไปจนถึง Deploy ดูแลทุกขั้นตอนให้ครบ" },
+        { q: "แนวคิดในการทำงานของทีมเป็นยังไง?", a: "ผ่านงานจริงมาหลายสเกล รู้ว่าโปรแกรมที่ดีไม่ใช่แค่รันได้ แต่ต้องทำให้คนใช้งานได้จริงในชีวิตประจำวัน\nทุกโปรเจกต์เริ่มจากคำถามว่า 'ผู้ใช้ต้องการอะไร' ก่อนเสมอ ไม่ใช่ 'โค้ดบรรทัดนี้ควรเขียนยังไง'" },
       ],
     },
     portfolio: {
@@ -364,6 +365,7 @@ const content = {
         { q: "How long does it take?", a: "A landing page takes 1–2 weeks, a Basic App 3–4 weeks, and Standard apps 4–8 weeks depending on scope." },
         { q: "Do I get the source code?", a: "Yes, full source code is included with every project. You own the code entirely and can extend or modify it in the future." },
         { q: "Do I need technical knowledge to hire you?", a: "Not at all. We explain everything in plain language, from design and planning to deployment. We handle the whole process end-to-end." },
+        { q: "What's your approach to building software?", a: "We've worked across projects of all sizes and learned that great software isn't about elegant code — it's about working well for the people who use it every day.\nEvery project starts with 'what does the user actually need?' not 'how should this line of code be written?'" },
       ],
     },
     portfolio: {
@@ -2617,7 +2619,7 @@ export default function Home() {
                       </span>
                     </button>
                     <div style={{ maxHeight: open ? 300 : 0, overflow:"hidden", transition:"max-height 0.3s ease" }}>
-                      <p className="px-6 pb-5 text-[14px] leading-relaxed" style={{ color: c.textMuted }}>{item.a}</p>
+                      <p className="px-6 pb-5 text-[14px] leading-relaxed" style={{ color: c.textMuted, whiteSpace:"pre-line" }}>{item.a}</p>
                     </div>
                   </div>
                 );
