@@ -994,7 +994,7 @@ export default function Home() {
   const [lang, setLang] = useState<Lang>("th");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   const [inquiryOpen, setInquiryOpen] = useState(false);
   const [inquiryPlan, setInquiryPlan] = useState("");
   const [inquiryText, setInquiryText] = useState("");
@@ -1188,6 +1188,10 @@ export default function Home() {
           from { opacity:0; }
           to   { opacity:1; }
         }
+        /* Hero wireframe responsive sizing */
+        .hero-wf { max-width: min(175px, 46vw); }
+        @media (min-width: 640px) { .hero-wf { max-width: min(260px, 60vw); } }
+        @media (min-width: 1024px) { .hero-wf { max-width: 360px; } }
         @keyframes heroDraw {
           from { stroke-dashoffset: 1; }
           to   { stroke-dashoffset: 0; }
@@ -1596,7 +1600,7 @@ export default function Home() {
               </div>
 
               {/* ── Wireframe drawing animation ── */}
-              <div className="flex flex-shrink-0 items-center justify-center w-full lg:w-auto" style={{ maxWidth: "min(360px, 88vw)" }}>
+              <div className="hero-wf flex-shrink-0 flex items-center justify-center w-full lg:w-auto">
                 <HeroWireframe dark={isDark} />
               </div>
 
