@@ -1766,26 +1766,53 @@ export default function Home() {
                   onMouseMove={onTilt}
                   onMouseLeave={offTilt}
                 >
-                  {/* Browser chrome mockup */}
-                  <div className="relative" style={{ background:isDark?"rgba(255,255,255,0.04)":"rgba(0,0,0,0.04)", borderBottom:`1px solid ${c.cardBorder}` }}>
-                    {/* Dots */}
-                    <div className="flex items-center gap-1.5 px-4 py-3">
-                      {["#ff5f57","#febc2e","#28c840"].map(col=>(
-                        <span key={col} style={{ width:10,height:10,borderRadius:"50%",background:col,display:"inline-block",opacity:0.7 }} />
-                      ))}
-                      {/* URL bar */}
-                      <div className="flex-1 mx-3 px-3 py-1 rounded-md text-[11px] truncate"
-                        style={{ background:isDark?"rgba(255,255,255,0.06)":"rgba(0,0,0,0.06)", color:c.textMuted }}>
-                        {item.url.replace("https://","")}
+                  {item.type === "Flutter App" ? (
+                    /* Phone mockup */
+                    <div className="flex items-center justify-center py-5" style={{ background:isDark?"rgba(255,255,255,0.03)":"rgba(0,0,0,0.03)", borderBottom:`1px solid ${c.cardBorder}` }}>
+                      <div className="relative flex items-center justify-center" style={{ width:90,height:160,borderRadius:18,background:isDark?"#0d1a2e":"#e2e8f0",border:`2px solid ${isDark?"rgba(255,255,255,0.12)":"rgba(0,0,0,0.14)"}`,boxShadow:isDark?"0 8px 32px rgba(0,0,0,0.5)":"0 8px 32px rgba(0,0,0,0.15)" }}>
+                        {/* notch */}
+                        <div className="absolute top-2.5 left-1/2 -translate-x-1/2" style={{ width:28,height:5,borderRadius:3,background:isDark?"rgba(255,255,255,0.15)":"rgba(0,0,0,0.18)" }} />
+                        {/* screen content */}
+                        <div className="flex flex-col items-center justify-center gap-1.5 mt-3">
+                          <div style={{ width:36,height:36,borderRadius:10,background:"linear-gradient(135deg,#2563eb,#7c3aed)",display:"flex",alignItems:"center",justifyContent:"center" }}>
+                            <span className="text-white font-black text-sm">S</span>
+                          </div>
+                          <span className="text-[8px] font-bold" style={{ color:isDark?"rgba(255,255,255,0.6)":"rgba(0,0,0,0.5)" }}>Brain Sudoku</span>
+                        </div>
+                        {/* home bar */}
+                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2" style={{ width:32,height:3,borderRadius:2,background:isDark?"rgba(255,255,255,0.2)":"rgba(0,0,0,0.2)" }} />
+                      </div>
+                      {/* App Store badge */}
+                      <div className="ml-4 flex flex-col gap-2">
+                        <div className="px-3 py-1.5 rounded-lg text-[10px] font-bold flex items-center gap-1.5" style={{ background:isDark?"rgba(255,255,255,0.06)":"rgba(0,0,0,0.06)", color:c.textMuted }}>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                          App Store
+                        </div>
+                        <div className="text-[9px]" style={{ color:c.textSubtle }}>iOS · Flutter</div>
                       </div>
                     </div>
-                    {/* Preview area */}
-                    <div className="flex items-center justify-center" style={{ height:140, background:isDark?"linear-gradient(135deg,rgba(37,99,235,0.12),rgba(109,40,217,0.12))":"linear-gradient(135deg,rgba(37,99,235,0.07),rgba(109,40,217,0.07))" }}>
-                      <span className="text-4xl font-black tracking-tight" style={{ backgroundImage:`linear-gradient(135deg,${isDark?"#60a5fa":"#2563eb"},${isDark?"#a78bfa":"#7c3aed"})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text" }}>
-                        {item.title}
-                      </span>
+                  ) : (
+                    /* Browser chrome mockup */
+                    <div className="relative" style={{ background:isDark?"rgba(255,255,255,0.04)":"rgba(0,0,0,0.04)", borderBottom:`1px solid ${c.cardBorder}` }}>
+                      {/* Dots */}
+                      <div className="flex items-center gap-1.5 px-4 py-3">
+                        {["#ff5f57","#febc2e","#28c840"].map(col=>(
+                          <span key={col} style={{ width:10,height:10,borderRadius:"50%",background:col,display:"inline-block",opacity:0.7 }} />
+                        ))}
+                        {/* URL bar */}
+                        <div className="flex-1 mx-3 px-3 py-1 rounded-md text-[11px] truncate"
+                          style={{ background:isDark?"rgba(255,255,255,0.06)":"rgba(0,0,0,0.06)", color:c.textMuted }}>
+                          {item.url.replace("https://","")}
+                        </div>
+                      </div>
+                      {/* Preview area */}
+                      <div className="flex items-center justify-center" style={{ height:140, background:isDark?"linear-gradient(135deg,rgba(37,99,235,0.12),rgba(109,40,217,0.12))":"linear-gradient(135deg,rgba(37,99,235,0.07),rgba(109,40,217,0.07))" }}>
+                        <span className="text-4xl font-black tracking-tight" style={{ backgroundImage:`linear-gradient(135deg,${isDark?"#60a5fa":"#2563eb"},${isDark?"#a78bfa":"#7c3aed"})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text" }}>
+                          {item.title}
+                        </span>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Card body */}
                   <div className="flex flex-col flex-1 p-5 gap-3">
